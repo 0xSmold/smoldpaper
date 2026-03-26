@@ -4,6 +4,8 @@
   <b>A lightweight, self-hosted, end-to-end encrypted message stash that burns after reading.</b>
 </p>
 
+**🌐 Live Demo:** [smoldpaper.org](https://smoldpaper.org)
+
 In an era where every written word settles forever on corporate servers, we brought back the magic of secret letters that turn to ash. 
 
 SmoldPaper is an open-source, client-side encrypted secure drop box. It allows two parties to exchange sensitive information across compromised or monitored channels without leaving a single trace on the server.
@@ -19,10 +21,10 @@ SmoldPaper operates on a strict **Zero-Knowledge architecture**. The server neve
 
 ## 🎭 How It Works (The Protocol)
 
-1. **The Stash:** You and your contact agree on a complex Seed Phrase to access a shared room (Stash). The server hashes this phrase and uses it only as a directory identifier.
-2. **The Decoy:** In any standard messenger (WhatsApp, Telegram, SMS), you send your contact a completely innocent phrase, like *"Did you feed the cat?"*.
-3. **The Secret:** In SmoldPaper, you paste that exact innocent phrase into the Public Phrase field and type your highly sensitive secret.
-4. **The Burn:** Your contact copies the decoy phrase from the messenger, enters the Stash, and decrypts the message. Once read, it turns to ash.
+1. **The Stash:** Agree on a secret seed phrase with your contact to access a shared SmoldPaper room.
+2. **The Signal:** Agree on a trigger word for regular chats. Example: *"If a message starts with **Buddy**, it's actually a hidden key."*
+3. **The Drop:** Chat normally. When you spot the trigger word, copy that entire message into SmoldPaper to unlock the secret.
+4. **Read & Burn:** The moment you read the secret message, it instantly turns to ash 🔥
 
 ## 🧠 How the Cryptography Works
 
@@ -55,13 +57,15 @@ To customize the UI texts, languages, or add a YouTube/Vimeo embed to the login 
 
 ## ❤️ Support the Project
 
-We believe privacy is a fundamental human right. SmoldPaper is free and open-source. If this tool helps you stay safe, consider supporting its development:
+❤️ We decided to share this app for free with everyone in the world because everyone has the right to privacy. Please consider supporting us at any of these wallets:
 
-* **BTC:** `bc1qlfq0pey708sn887rq6rqhee2ggerxaaa4a7um4`
-* **ETH:** `0x6169b9131a14330E63C7dDaeF39AbC7139e786fD`
-* **USDT (TRC-20):** `TEL9PiFPazWMVw13c6n3Mjpzoy9YEfLynh`
-* **USDT (ERC-20):** `0x5e9637d63c00734Ef4A388753d9BFF96b43Fd79C`
-* **TON:** `EQDUDlC_EmEy05pAZNDwhXYUW7KDeWR4byWtHEA_m4A89dzI`
+* **BTC:** `bc1qxdnfjakd89qrz59cr702pt70n0wtapkcrmtnyk`
+* **USDT (TRC-20) / TRX:** `TYqAdNNvvwzNT7LUkGCh8sZLjNQNza3NDd`
+* **Monero (XMR):** `87ZQda7hirZWdmrTCBSF8GVewZ4eh8mKeRdADLDTvmZbSPe8W7zukVZKf2UEWCxBveXh8zGGyDVJBdVugY1T8LA9PvXD3CF`
+* **ETH / BNB (BSC):** `0xeAe930F5B6863Aec4a98b25e346beE20723A7F96`
+* **Litecoin (LTC):** `ltc1qr62jmk9h5wnc0ptvvqcjmw8zxfuthhlqu6h30r`
+* **TON:** `UQApKqtdQ2vlab-CvRGJve_jlNVqkf_g-mngpKMS34Ga85RT`
+* **Dogecoin (DOGE):** `D9j8yZyiNztiLZMZ8SSQmqgd53VfEcyJFp`
 
 ## ⚖️ Disclaimer
 
