@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SmoldPaper – Zero-Knowledge Box</title>
+    
+    <!-- Скрипт темы: предотвращает вспышки белого/черного фона при загрузке -->
+    <script>
+      try {
+        var savedTheme = localStorage.getItem('smoldpaper_theme');
+        var isDark = savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        if (isDark) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      } catch (e) {}
+    </script>
+
+    <!-- Подключаем Tailwind -->
+    <script type="text/javascript" src="https://cdn.tailwindcss.com"></script>
+    <script type="text/javascript">
+      tailwind.config = { 
+        darkMode: 'class'
+      };
+    </script>
+  </head>
+  <body class="bg-[#E5E7EB] dark:bg-[#0F0E0D] transition-colors duration-300">
+    <div id="root"></div>
+    
+    <!-- ВАЖНО: Правильная точка входа для Vite / StackBlitz -->
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
