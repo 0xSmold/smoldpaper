@@ -21,7 +21,7 @@ const API_URL = 'api.php';
 // ==========================================
 const FALLBACK_DICT: Record<string, any> = {
   ru: {
-    appTitle: "SmoldPaper", tagline: "Zero-Knowledge Box", loginTitle: "Доступ к тайнику",
+    appTitle: "SmoldPaper", tagline: "Open-Source Zero-Knowledge Box", loginTitle: "Доступ к тайнику",
     loginDesc: "Сгенерируйте или введите сложную уникальную сид-фразу для создания или входа в защищенную комнату. Сервер её не сохраняет.",
     seedPlaceholder: "Сид-фраза от 8 до 255 символов", btnEnter: "Открыть тайник",
     loginEmbedHtml: "", 
@@ -39,17 +39,17 @@ const FALLBACK_DICT: Record<string, any> = {
     warnDelete5: "Внимание: 5 неверных попыток навсегда сожгут сообщение.",
     decryptedLocal: "Расшифровано локально", copyWarn: "Скопируйте нужную информацию. При закрытии окна этот текст превратится в пепел и будет утерян.",
     infoHowItWorks: "Магия тлеющей бумаги", 
-    infoP1: "В эпоху, когда каждое написанное слово навсегда оседает на серверах корпораций, мы вернули магию тайных писем, сгорающих после прочтения. <br/><br/><strong>SmoldPaper (Тлеющая бумага)</strong> — это инструмент, превращающий вашу переписку в цифровой пепел. Текст шифруется прямо на вашем устройстве, передается как криптографический шум и безвозвратно уничтожается (сгорает) сразу после расшифровки. Никаких следов. Только вы и ваш собеседник.",
+    infoP1: "В эпоху, когда каждое написанное слово навсегда оседает на серверах корпораций, мы вернули магию тайных писем, сгорающих после прочтения. <br/><br/><strong>SmoldPaper (Тлеющая бумага)</strong> — это <strong>бесплатный проект с открытым исходным кодом (Open Source)</strong>, превращающий вашу переписку в цифровой пепел. Текст шифруется прямо на вашем устройстве, передается как криптографический шум и безвозвратно уничтожается (сгорает) сразу после расшифровки. Никаких следов. Только вы и ваш собеседник.",
     
     infoAlgTitle: "Как пользоваться?",
     step1Title: "Тайник",
-    infoAlg1: "Вы договариваетесь с собеседником о секретной сид-фразе (пароле) для входа в Тайник SmoldPaper, где будете всегда расшифровывать сообщения.",
+    infoAlg1: "Договоритесь с собеседником о секретной сид-фразе для доступа к общей комнате в SmoldPaper.",
     step2Title: "Условный сигнал",
-    infoAlg2: "Также вы договариваетесь, как понять в обычной переписке в любом мессенджере, что в безобидном сообщении скрыт секрет. Например: <em>«Если я начинаю любое сообщение со слова <strong>Дружище</strong>, значит, это сообщение и есть ключ от скрытого секрета»</em>.",
+    infoAlg2: "Придумайте кодовое слово для обычных чатов. Например: <em>«Если сообщение начинается со слова <strong>Дружище</strong>, значит это ключ»</em>.",
     step3Title: "Передача",
-    infoAlg3: "Дальше всё просто! Как обычно общаетесь в любом мессенджере, но если видите сигнальное слово, о котором договорились, сразу копируете это сообщение целиком, чтобы расшифровать его в SmoldPaper.",
+    infoAlg3: "Общайтесь как обычно. Заметив кодовое слово, просто скопируйте это сообщение в SmoldPaper, чтобы расшифровать тайну.",
     step4Title: "Чтение и пепел",
-    infoAlg4: "Как только вы прочитаете секретное сообщение, оно сразу сгорает 🔥",
+    infoAlg4: "Как только вы прочитаете секретное сообщение, оно мгновенно сгорит 🔥",
     infoAlgOutro: "🕵️‍♂️ <em>Переписывайтесь у всех на виду, не вызывая подозрений. Обменивайтесь секретами в SmoldPaper!</em>",
 
     infoTechTitle: "Как работает шифрование",
@@ -81,7 +81,7 @@ const FALLBACK_DICT: Record<string, any> = {
     errNoHttps: "Внимание: нет HTTPS или Crypto API недоступно. Шифрование невозможно.",
   },
   en: {
-    appTitle: "SmoldPaper", tagline: "Zero-Knowledge Box", loginTitle: "Access the Stash",
+    appTitle: "SmoldPaper", tagline: "Open-Source Zero-Knowledge Box", loginTitle: "Access the Stash",
     loginDesc: "Generate or enter a complex unique seed phrase to access a secure room. The server never saves it.",
     seedPlaceholder: "Seed phrase (8 to 255 chars)", btnEnter: "Open Stash", loginEmbedHtml: "",
     encryptAndSend: "Encrypt & Leave", pubPhraseLabel: "Public Phrase (Chat Key)",
@@ -97,17 +97,17 @@ const FALLBACK_DICT: Record<string, any> = {
     warnDelete5: "Warning: 5 incorrect attempts will permanently burn the message.",
     decryptedLocal: "Decrypted Locally", copyWarn: "Copy what you need. When you close this window, the text turns to ash and is lost forever.",
     infoHowItWorks: "The Magic of Smoldering Paper", 
-    infoP1: "In an era where every written word settles forever on corporate servers, we brought back the magic of secret letters that burn after reading. <br/><br/><strong>SmoldPaper</strong> is digital ash. Your messages are encrypted right on your device, transmitted as cryptographic noise, and irretrievably destroyed immediately after decryption. No traces. Just you and your contact.",
+    infoP1: "In an era where every written word settles forever on corporate servers, we brought back the magic of secret letters that burn after reading. <br/><br/><strong>SmoldPaper</strong> is a <strong>free and open-source</strong> digital ash. Your messages are encrypted right on your device, transmitted as cryptographic noise, and irretrievably destroyed immediately after decryption. No traces. Just you and your contact.",
     
     infoAlgTitle: "How to use it?",
     step1Title: "The Stash",
-    infoAlg1: "You agree with your contact on a secret seed phrase (password) to enter a shared SmoldPaper Stash, where you will always decrypt your messages.",
+    infoAlg1: "Agree on a secret seed phrase with your contact to access a shared SmoldPaper room.",
     step2Title: "The Signal",
-    infoAlg2: "You also agree on a way to recognize when a harmless message in a standard chat contains a hidden secret. For example: <em>«If I start any message with the word <strong>Buddy</strong>, it means this exact message is the key to the secret»</em>.",
+    infoAlg2: "Agree on a trigger word for regular chats. Example: <em>«If a message starts with <strong>Buddy</strong>, it's actually a hidden key»</em>.",
     step3Title: "The Drop",
-    infoAlg3: "The rest is simple! You chat normally in any messenger, but if you spot the agreed trigger word, you immediately copy that entire message to decrypt the hidden secret in SmoldPaper.",
+    infoAlg3: "Chat normally. When you spot the trigger word, copy that entire message into SmoldPaper to unlock the secret.",
     step4Title: "Read & Burn",
-    infoAlg4: "As soon as you read the secret message, it instantly burns 🔥",
+    infoAlg4: "The moment you read the secret message, it instantly turns to ash 🔥",
     infoAlgOutro: "🕵️‍♂️ <em>Chat in plain sight without raising suspicion. Exchange secrets in SmoldPaper!</em>",
 
     infoTechTitle: "How Encryption Works",
@@ -138,7 +138,7 @@ const FALLBACK_DICT: Record<string, any> = {
     errNoHttps: "Warning: No HTTPS or Crypto API unavailable. Encryption disabled.",
   },
   de: {
-    appTitle: "SmoldPaper", tagline: "Zero-Knowledge Box", loginTitle: "Zugang zum Versteck",
+    appTitle: "SmoldPaper", tagline: "Open-Source Zero-Knowledge Box", loginTitle: "Zugang zum Versteck",
     loginDesc: "Generieren oder geben Sie eine komplexe, einzigartige Seed-Phrase ein. Der Server speichert sie nicht.",
     seedPlaceholder: "Seed-Phrase (8 bis 255 Z.)", btnEnter: "Versteck öffnen", loginEmbedHtml: "",
     encryptAndSend: "Verschlüsseln & Hinterlassen", pubPhraseLabel: "Öffentlicher Satz (Chat-Schlüssel)",
@@ -153,17 +153,18 @@ const FALLBACK_DICT: Record<string, any> = {
     decryptPhrasePlaceholder: "Öffentlichen Satz eingeben...", btnDecrypt: "Entschlüsseln", readsLeft: "Verbleibende Aufrufe",
     warnDelete5: "Achtung: 5 falsche Versuche verbrennen die Nachricht endgültig.",
     decryptedLocal: "Lokal entschlüsselt", copyWarn: "Kopieren Sie die Infos. Beim Schließen zerfällt der Text zu Asche.",
-    infoHowItWorks: "Die Magie des schwelenden Papiers", infoP1: "SmoldPaper ist digitale Asche. Ihre Nachrichten werden direkt verschlüsselt und nach dem Lesen dauerhaft verbrannt.",
+    infoHowItWorks: "Die Magie des schwelenden Papiers", 
+    infoP1: "In einer Ära, in der jedes geschriebene Wort für immer auf Firmenservern landet, haben wir die Magie geheimer Briefe zurückgebracht, die nach dem Lesen verbrennen. <br/><br/><strong>SmoldPaper</strong> ist ein <strong>kostenloses Open-Source-Projekt</strong> für digitale Asche. Ihre Nachrichten werden direkt auf Ihrem Gerät verschlüsselt, als kryptografisches Rauschen übertragen und sofort nach der Entschlüsselung unwiderruflich zerstört. Keine Spuren. Nur Sie und Ihr Kontakt.",
     
     infoAlgTitle: "Wie benutzt man es?",
     step1Title: "Das Versteck",
-    infoAlg1: "Sie vereinbaren mit Ihrem Kontakt eine geheime Seed-Phrase (Passwort) für ein gemeinsames SmoldPaper-Versteck, in dem Sie immer Ihre Nachrichten entschlüsseln.",
+    infoAlg1: "Vereinbaren Sie eine geheime Seed-Phrase mit Ihrem Kontakt für den Zugang zum gemeinsamen Raum.",
     step2Title: "Das Signal",
-    infoAlg2: "Außerdem vereinbaren Sie, wie Sie in einem normalen Chat erkennen, dass eine harmlose Nachricht ein Geheimnis verbirgt. Zum Beispiel: <em>«Wenn ich eine Nachricht mit dem Wort <strong>Kumpel</strong> beginne, ist genau diese Nachricht der Schlüssel zum Geheimnis»</em>.",
+    infoAlg2: "Legen Sie ein Signalwort fest. Beispiel: <em>«Beginnt eine Nachricht mit <strong>Kumpel</strong>, ist sie der Schlüssel»</em>.",
     step3Title: "Die Übergabe",
-    infoAlg3: "Der Rest ist einfach! Sie chatten ganz normal weiter, aber wenn Sie das vereinbarte Signalwort sehen, kopieren Sie sofort die gesamte Nachricht, um das Geheimnis in SmoldPaper zu entschlüsseln.",
+    infoAlg3: "Chatten Sie normal. Wenn Sie das Signalwort sehen, kopieren Sie die Nachricht in SmoldPaper, um das Geheimnis zu lüften.",
     step4Title: "Lesen & Verbrennen",
-    infoAlg4: "Sobald Sie die geheime Nachricht gelesen haben, verbrennt sie sofort 🔥",
+    infoAlg4: "Sobald Sie die Nachricht lesen, verbrennt sie sofort 🔥",
     infoAlgOutro: "🕵️‍♂️ <em>Chatten Sie offen und ohne Verdacht zu erregen. Tauschen Sie Geheimnisse in SmoldPaper aus!</em>",
 
     infoTechTitle: "Wie die Verschlüsselung funktioniert", infoTechText: "Die Daten werden lokal mit AES-GCM 256-bit verschlüsselt. Der Server arbeitet nach dem Zero-Knowledge-Prinzip.",
@@ -193,7 +194,7 @@ const FALLBACK_DICT: Record<string, any> = {
     errNoHttps: "Warnung: Kein HTTPS oder Crypto-API nicht verfügbar. Verschlüsselung deaktiviert.",
   },
   fr: {
-    appTitle: "SmoldPaper", tagline: "Boîte Zero-Knowledge", loginTitle: "Accès à la Cachette",
+    appTitle: "SmoldPaper", tagline: "Boîte Zero-Knowledge Open-Source", loginTitle: "Accès à la Cachette",
     loginDesc: "Générez ou entrez une phrase seed unique et complexe. Le serveur ne la stocke pas.",
     seedPlaceholder: "Phrase seed (8 à 255 car.)", btnEnter: "Ouvrir la cachette", loginEmbedHtml: "",
     encryptAndSend: "Chiffrer et Laisser", pubPhraseLabel: "Phrase publique (Clé du chat)",
@@ -208,15 +209,16 @@ const FALLBACK_DICT: Record<string, any> = {
     decryptPhrasePlaceholder: "Entrez la phrase publique...", btnDecrypt: "Déchiffrer", readsLeft: "Lectures restantes",
     warnDelete5: "Attention: 5 tentatives échouées brûleront le message.",
     decryptedLocal: "Déchiffré localement", copyWarn: "Copiez l'information. À la fermeture, le texte se transforme en cendres.",
-    infoHowItWorks: "La magie du papier qui se consume", infoP1: "SmoldPaper, c'est de la cendre numérique. Vos messages sont chiffrés et brûlés après lecture.",
+    infoHowItWorks: "La magie du papier qui se consume", 
+    infoP1: "À une époque où chaque mot écrit s'installe pour toujours sur les serveurs des entreprises, nous avons ramené la magie des lettres secrètes qui brûlent après lecture. <br/><br/><strong>SmoldPaper</strong> est une cendre numérique <strong>gratuite et open source</strong>. Vos messages sont chiffrés directement sur votre appareil, transmis sous forme de bruit cryptographique et irréversiblement détruits immédiatement après le déchiffrement. Aucune trace. Juste vous et votre contact.",
     
     infoAlgTitle: "Comment l'utiliser ?",
     step1Title: "La Cachette",
-    infoAlg1: "Vous convenez avec votre contact d'une phrase seed (mot de passe) secrète pour accéder à une Cachette SmoldPaper commune, où vous déchiffrerez toujours vos messages.",
+    infoAlg1: "Convenez d'une phrase seed secrète avec votre contact pour accéder à une cachette commune.",
     step2Title: "Le Signal",
-    infoAlg2: "Vous convenez également d'un moyen de reconnaître qu'un message anodin dans un chat normal cache un secret. Par exemple : <em>« Si je commence un message par le mot <strong>Pote</strong>, cela signifie que ce message est la clé du secret »</em>.",
+    infoAlg2: "Choisissez un mot-clé. Exemple : <em>« Si un message commence par <strong>Pote</strong>, c'est la clé cachée »</em>.",
     step3Title: "La Transmission",
-    infoAlg3: "La suite est simple ! Vous discutez normalement dans n'importe quelle messagerie, mais si vous voyez le mot déclencheur, vous copiez immédiatement le message entier pour déchiffrer le secret dans SmoldPaper.",
+    infoAlg3: "Discutez normalement. Si vous voyez le mot-clé, copiez le message dans SmoldPaper pour révéler le secret.",
     step4Title: "Lecture et Cendres",
     infoAlg4: "Dès que vous lisez le message secret, il brûle instantanément 🔥",
     infoAlgOutro: "🕵️‍♂️ <em>Discutez à la vue de tous sans éveiller les soupçons. Échangez des secrets dans SmoldPaper !</em>",
@@ -248,7 +250,7 @@ const FALLBACK_DICT: Record<string, any> = {
     errNoHttps: "Avertissement: pas de HTTPS ou API Crypto indisponible. Chiffrement désactivé.",
   },
   es: {
-    appTitle: "SmoldPaper", tagline: "Caja Zero-Knowledge", loginTitle: "Acceso al Escondite",
+    appTitle: "SmoldPaper", tagline: "Caja Zero-Knowledge Open-Source", loginTitle: "Acceso al Escondite",
     loginDesc: "Genera o introduce una frase semilla compleja y única. El servidor no la guarda.",
     seedPlaceholder: "Frase semilla (8 a 255 car.)", btnEnter: "Abrir escondite", loginEmbedHtml: "",
     encryptAndSend: "Cifrar y Dejar", pubPhraseLabel: "Frase pública (Clave del chat)",
@@ -263,17 +265,18 @@ const FALLBACK_DICT: Record<string, any> = {
     decryptPhrasePlaceholder: "Introduce la frase pública...", btnDecrypt: "Descifrar", readsLeft: "Lectures restantes",
     warnDelete5: "Atención: 5 intentos fallidos quemarán el mensaje.",
     decryptedLocal: "Descifrado localmente", copyWarn: "Copia la información. Al cerrar, el texto se convierte en cenizas.",
-    infoHowItWorks: "La magia del papel ardiente", infoP1: "SmoldPaper es ceniza digital. Tus mensajes se cifran y se queman tras leerlos.",
+    infoHowItWorks: "La magia del papel ardiente", 
+    infoP1: "En una era donde cada palabra escrita se asienta para siempre en servidores corporativos, trajimos de vuelta la magia de las cartas secretas que se queman después de leerse. <br/><br/><strong>SmoldPaper</strong> es ceniza digital <strong>gratuita y de código abierto (Open Source)</strong>. Tus mensajes se cifran directamente en tu dispositivo, se transmiten como ruido criptográfico y se destruyen irremediablemente inmediatamente después de descifrarlos. Sin rastros. Solo tú y tu contacto.",
     
     infoAlgTitle: "¿Cómo se usa?",
     step1Title: "El Escondite",
-    infoAlg1: "Acuerdas con tu contacto una frase semilla (contraseña) secreta para entrar a un Escondite común de SmoldPaper, donde siempre descifrarán los mensajes.",
+    infoAlg1: "Acuerda una frase semilla secreta con tu contacto para acceder a un escondite común.",
     step2Title: "La Señal",
-    infoAlg2: "También acuerdan cómo darse cuenta en un chat normal de que un mensaje inofensivo oculta un secreto. Por ejemplo: <em>«Si empiezo cualquier mensaje con la palabra <strong>Amigo</strong>, significa que ese mensaje es la llave del secreto oculto»</em>.",
+    infoAlg2: "Elige una palabra clave. Ejemplo: <em>«Si un mensaje empieza por <strong>Amigo</strong>, es la llave oculta»</em>.",
     step3Title: "La Transmisión",
-    infoAlg3: "¡El resto es simple! Chatean normalmente en cualquier mensajería, pero si ven la palabra clave acordada, copian ese mensaje entero de inmediato para descifrar el secreto en SmoldPaper.",
+    infoAlg3: "Chatea normalmente. Cuando veas la palabra clave, copia el mensaje en SmoldPaper para revelar el secreto.",
     step4Title: "Leer y Quemar",
-    infoAlg4: "En cuanto lees el mensaje secreto, se quema de inmediato 🔥",
+    infoAlg4: "En cuanto leas el mensaje secreto, se quemará al instante 🔥",
     infoAlgOutro: "🕵️‍♂️ <em>Chatea a la vista de todos sin levantar sospechas. ¡Intercambien secretos en SmoldPaper!</em>",
 
     infoTechTitle: "Cómo funciona el cifrado", infoTechText: "Los datos se cifran localmente con AES-GCM 256-bit. El servidor funciona según el principio Zero-Knowledge.",
@@ -306,13 +309,23 @@ const FALLBACK_DICT: Record<string, any> = {
 
 const DICT: any = typeof window !== 'undefined' && (window as any).SMOLDPAPER_DICT ? (window as any).SMOLDPAPER_DICT : FALLBACK_DICT;
 
+const defaultFooter = `End-to-End Encrypted. We don't store keys, read messages, and we delete them permanently.
+<div style="margin-top: 12px; display: flex; justify-content: center;">
+  <a href="https://github.com/0xSmold/smoldpaper" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; background: rgba(150, 150, 150, 0.1); border-radius: 10px; text-decoration: none; color: inherit; font-weight: bold; font-size: 13px; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">
+    <svg height="18" viewBox="0 0 16 16" width="18" style="fill: currentColor;">
+      <path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path>
+    </svg>
+    GitHub Open Source
+  </a>
+</div>`;
+
 // ==========================================
 // БЛОК ЭМУЛЯЦИИ ДЛЯ ПЕСОЧНИЦЫ
 // ==========================================
 let mockDB: any = { 
   messages: [], 
   settings: { 
-    footer_html: 'E2E шифрование. Мы не храним ключи, не читаем сообщения и удаляем их аппаратно.', 
+    footer_html: defaultFooter, 
     custom_dict_ru: '{}', custom_dict_en: '{}', custom_dict_de: '{}', custom_dict_fr: '{}', custom_dict_es: '{}', 
     admin_password: 'admin123' 
   } 
@@ -490,7 +503,7 @@ function SupportBlock({ t, themeClasses, showToast }: any) {
 
   return (
     <div className={`rounded-2xl border overflow-hidden w-full ${themeClasses.bgCard}`}>
-      <div className={`p-5 sm:p-6 border-b border-red-50/50 dark:border-[#3E3832]`}>
+      <div className={`p-5 sm:p-6 border-b border-[#EAE0D0]/70 dark:border-[#3E3832]`}>
         <p className="text-sm mb-4 leading-relaxed font-medium text-left" dangerouslySetInnerHTML={{ __html: t('donateMessage') }}></p>
         
         <button 
@@ -505,7 +518,7 @@ function SupportBlock({ t, themeClasses, showToast }: any) {
         {showWallets && (
           <div className="space-y-2 mt-4 animate-in fade-in slide-in-from-top-2">
             {wallets.map(w => (
-              <div key={w.name} className={`flex items-center justify-between p-2.5 sm:p-3 rounded-xl border bg-white dark:bg-[#110F0E] border-slate-200 dark:border-[#3E3832]`}>
+              <div key={w.name} className={`flex items-center justify-between p-2.5 sm:p-3 rounded-xl border bg-[#FDF8EC] dark:bg-[#110F0E] border-[#EAE0D0] dark:border-[#3E3832]`}>
                 <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 overflow-hidden pr-2">
                   <span className={`font-bold text-[11px] sm:text-xs w-36 shrink-0 ${themeClasses.accentText}`}>{w.name}</span>
                   <span className="font-mono text-xs sm:text-sm truncate opacity-70 cursor-text select-all">{w.address}</span>
@@ -519,7 +532,7 @@ function SupportBlock({ t, themeClasses, showToast }: any) {
         )}
       </div>
 
-      <div className={`p-5 sm:p-6 bg-slate-50 dark:bg-[#110F0E]`}>
+      <div className={`p-5 sm:p-6 bg-[#F3EBE0] dark:bg-[#110F0E]`}>
         <h3 className="font-bold flex items-center mb-3 text-lg"><Share2 size={18} className={`mr-2 ${themeClasses.accentText}`}/> {t('shareTitle')}</h3>
         <p className={`text-sm mb-4 leading-relaxed text-left ${themeClasses.textMuted}`}>{t('shareText')}</p>
         <button onClick={handleShare} className={`w-full px-6 py-3.5 rounded-xl font-bold flex items-center justify-center transition-all active:scale-95 ${themeClasses.hoverBtn}`}>
@@ -546,7 +559,7 @@ function HowItWorksInfographic({ t }: any) {
     <div className="w-full">
        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
          {steps.map((step, i) => (
-            <div key={i} className={`p-5 rounded-2xl border bg-white dark:bg-[#1A1816] ${step.border} relative overflow-hidden shadow-sm transition-transform hover:-translate-y-1`}>
+            <div key={i} className={`p-5 rounded-2xl border bg-[#FDF8EC] dark:bg-[#1A1816] ${step.border} relative overflow-hidden shadow-sm transition-transform hover:-translate-y-1`}>
                <div className={`w-12 h-12 rounded-xl ${step.bg} ${step.color} flex items-center justify-center mb-4 relative z-10`}>
                   {step.icon}
                </div>
@@ -583,7 +596,7 @@ export default function App() {
 
   const [isLoginInfoOpen, setIsLoginInfoOpen] = useState(true); // Состояние сворачивания инструкции на главной
   const [serverDict, setServerDict] = useState<any>({ ru: {}, en: {}, de: {}, fr: {}, es: {} });
-  const [footerHtml, setFooterHtml] = useState('E2E шифрование. Мы не храним ключи, не читаем сообщения и удаляем их аппаратно.');
+  const [footerHtml, setFooterHtml] = useState(defaultFooter);
 
   const [roomSeed, setRoomSeed] = useState('');
   const [roomHash, setRoomHash] = useState('');
@@ -739,15 +752,19 @@ export default function App() {
     document.body.removeChild(ta);
   };
 
+  // ==========================================
+  // ГЛОБАЛЬНЫЕ КЛАССЫ СТИЛЕЙ
+  // ИСПРАВЛЕНИЯ ПАЛИТРЫ (Серый фон / Дорогая бумага / Moleskine стиль): 
+  // ==========================================
   const themeClasses = {
     bgApp: 'bg-[#E5E7EB] dark:bg-[#0F0E0D] text-[#2c241b] dark:text-[#D6C8B3]',
-    bgCard: 'bg-white dark:bg-[#1A1816] border-red-100 dark:border-[#3E3832] shadow-[0_10px_40px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.6)]',
-    inputBg: 'bg-slate-50 dark:bg-[#110F0E] border-red-100 dark:border-[#3E3832] focus:bg-white focus:border-red-400 dark:focus:border-red-800 focus:ring-4 focus:ring-red-500/10 dark:focus:ring-red-900/30 text-slate-900 dark:text-[#EBE1D1] transition-all outline-none',
+    bgCard: 'bg-[#FDF8EC] dark:bg-[#1A1816] border-[#EAE0D0] dark:border-[#3E3832] shadow-[0_10px_40px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.6)]',
+    inputBg: 'bg-[#F3EBE0] dark:bg-[#110F0E] border-[#EAE0D0] dark:border-[#3E3832] focus:bg-[#FDF8EC] focus:border-red-400 dark:focus:border-red-800 focus:ring-4 focus:ring-red-500/10 dark:focus:ring-red-900/30 text-slate-900 dark:text-[#EBE1D1] transition-all outline-none',
     textMuted: 'text-[#8c8273] dark:text-[#9E9383]',
     accentText: 'text-red-600 dark:text-red-500',
     btnPrimary: 'bg-gradient-to-br from-red-600 to-rose-800 hover:from-red-500 hover:to-rose-700 dark:from-red-800 dark:to-rose-950 dark:hover:from-red-700 dark:hover:to-rose-900 text-white dark:text-[#EBE1D1] shadow-lg shadow-red-700/20 dark:shadow-[0_0_15px_rgba(225,29,72,0.2)] border border-red-500/50 dark:border-red-900/50 transition-all outline-none focus-visible:ring-2 focus-visible:ring-red-500/50',
-    headerBg: 'bg-[#FCFBF8]/90 dark:bg-[#0F0E0D]/90 border-[#E8E6E1] dark:border-[#3E3832] shadow-sm',
-    hoverBtn: 'bg-[#F3F1EC] dark:bg-[#1A1816] hover:bg-[#E8E6E1] dark:hover:bg-[#2B2622] text-[#5c5448] dark:text-[#D6C8B3] dark:hover:text-[#EBE1D1] border border-transparent dark:border-[#3E3832] font-medium transition-colors outline-none focus-visible:ring-2 focus-visible:ring-red-500/50'
+    headerBg: 'bg-[#FDF8EC]/90 dark:bg-[#0F0E0D]/90 border-[#EAE0D0] dark:border-[#3E3832] shadow-sm',
+    hoverBtn: 'bg-[#F3EBE0] dark:bg-[#1A1816] hover:bg-[#EAE0D0] dark:hover:bg-[#2B2622] text-[#5c5448] dark:text-[#D6C8B3] dark:hover:text-[#EBE1D1] border border-transparent dark:border-[#3E3832] font-medium transition-colors outline-none focus-visible:ring-2 focus-visible:ring-red-500/50'
   };
 
   return (
@@ -839,7 +856,7 @@ export default function App() {
 
             <div className="w-full max-w-lg flex flex-col gap-6 px-2 sm:px-0">
               <div className={`p-6 sm:p-8 rounded-2xl border w-full ${themeClasses.bgCard}`}>
-                <div className={`w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-6 bg-red-50 dark:bg-[#1A1816] text-red-600 dark:text-red-500`}><Key size={32} /></div>
+                <div className={`w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-6 bg-[#F3EBE0] dark:bg-[#1A1816] text-red-600 dark:text-red-500`}><Key size={32} /></div>
                 <h2 className="text-2xl font-black text-center mb-2">{t('loginTitle')}</h2>
                 <p className={`text-center text-sm mb-8 px-2 ${themeClasses.textMuted}`}>{t('loginDesc')}</p>
                 
@@ -977,7 +994,7 @@ function AdminScreen({ adminPass, serverDict, setServerDict, footerHtml, setFoot
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div>
                 <p className={`text-sm mb-2 ${themeClasses.textMuted}`}>Язык для редактирования. Оставьте поле пустым для базового текста.</p>
-                <div className={`flex gap-1 p-1 rounded-lg inline-flex border bg-[#F3F1EC] dark:bg-[#0F0E0D] border-[#E8E6E1] dark:border-[#3E3832]`}>
+                <div className={`flex gap-1 p-1 rounded-lg inline-flex border bg-[#F3EBE0] dark:bg-[#0F0E0D] border-[#EAE0D0] dark:border-[#3E3832]`}>
                   {['ru', 'en', 'de', 'fr', 'es'].map(l => (
                     <button key={l} onClick={() => setEditLang(l)} className={`px-4 py-1.5 rounded-md text-xs font-bold uppercase transition-all outline-none focus-visible:ring-2 focus-visible:ring-red-500/50 ${editLang === l ? themeClasses.btnPrimary : themeClasses.hoverBtn}`}>{l}</button>
                   ))}
@@ -989,7 +1006,7 @@ function AdminScreen({ adminPass, serverDict, setServerDict, footerHtml, setFoot
               {Object.keys(FALLBACK_DICT[editLang] || FALLBACK_DICT.en)
                 .filter(key => key !== 'donateMessage' || secretClicks >= 5)
                 .map(key => (
-                <div key={key} className={`p-4 rounded-xl border bg-slate-50 dark:bg-[#110F0E] border-red-100 dark:border-[#3E3832]`}>
+                <div key={key} className={`p-4 rounded-xl border bg-[#F3EBE0] dark:bg-[#110F0E] border-[#EAE0D0] dark:border-[#3E3832]`}>
                   <label className={`block text-xs font-mono mb-2 ${themeClasses.accentText}`}>{key === 'loginEmbedHtml' ? 'Код видеоплеера (YouTube/Vimeo Iframe)' : key}</label>
                   <textarea 
                     value={localDict[editLang]?.[key] !== undefined ? localDict[editLang][key] : (FALLBACK_DICT[editLang]?.[key] || '')} 
@@ -1182,7 +1199,7 @@ function RoomScreen({ roomHash, roomSeed, settings, updateSetting, themeClasses,
         {/* ОТПРАВКА */}
         <div className={`rounded-2xl border overflow-hidden ${themeClasses.bgCard}`}>
           <div 
-            className={`p-4 sm:p-6 sm:pb-4 flex justify-between items-center cursor-pointer select-none transition-colors hover:bg-[#E8E6E1]/50 dark:hover:bg-white/5 border-b border-transparent dark:border-[#3E3832]`}
+            className={`p-4 sm:p-6 sm:pb-4 flex justify-between items-center cursor-pointer select-none transition-colors hover:bg-[#EAE0D0]/50 dark:hover:bg-white/5 border-b border-transparent dark:border-[#3E3832]`}
             onClick={() => setIsComposeOpen(!isComposeOpen)}
           >
             <h2 className="text-xl font-bold flex items-center"><Zap className={`mr-2 ${themeClasses.accentText}`}/> {t('encryptAndSend')}</h2>
@@ -1223,7 +1240,7 @@ function RoomScreen({ roomHash, roomSeed, settings, updateSetting, themeClasses,
                   <textarea value={secretText} onChange={e => setSecretText(e.target.value)} maxLength={MAX_SECRET} placeholder={t('secretPlaceholder')} className={`w-full min-h-[16rem] px-4 py-3 rounded-xl border resize-y text-sm sm:text-base ${themeClasses.inputBg}`} required/>
                 </div>
 
-                <div className={`p-3 sm:p-4 rounded-xl border transition-all bg-red-50 dark:bg-[#1A1816] border-red-100 dark:border-[#3E3832]`}>
+                <div className={`p-3 sm:p-4 rounded-xl border transition-all bg-[#F3EBE0] dark:bg-[#1A1816] border-[#EAE0D0] dark:border-[#3E3832]`}>
                    <div className="text-sm font-bold flex items-center mb-3"><Settings size={16} className="mr-2 opacity-70"/> {t('settingsLabel')}</div>
                    <div className="grid grid-cols-2 gap-3 sm:gap-4">
                      <div>
@@ -1269,7 +1286,7 @@ function RoomScreen({ roomHash, roomSeed, settings, updateSetting, themeClasses,
               <div className="p-4 sm:p-6 flex-1 overflow-y-auto">
                 {!decryptedText ? (
                   <div className="max-w-sm mx-auto mt-6 sm:mt-10">
-                    <div className={`w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 bg-red-50 dark:bg-[#110F0E]`}><Lock size={24} className="opacity-50" /></div>
+                    <div className={`w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 bg-[#F3EBE0] dark:bg-[#110F0E]`}><Lock size={24} className="opacity-50" /></div>
                     <h3 className="text-lg sm:text-xl font-bold text-center mb-6">{t('needDecrypt')}</h3>
                     <form onSubmit={attemptDecrypt}>
                       <input type="text" value={readPubPhrase} onChange={e => setReadPubPhrase(e.target.value)} placeholder={t('decryptPhrasePlaceholder')} className={`w-full px-4 py-3 rounded-xl border font-medium mb-4 text-center text-sm sm:text-base ${themeClasses.inputBg}`} required/>
@@ -1284,7 +1301,7 @@ function RoomScreen({ roomHash, roomSeed, settings, updateSetting, themeClasses,
                        <span className="inline-flex items-center px-3 py-1.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-bold uppercase self-start"><Unlock size={14} className="mr-1.5"/> {t('decryptedLocal')}</span>
                        <button onClick={() => { copyToClipboard(decryptedText); }} className={`p-2 rounded-lg flex items-center justify-center gap-2 font-bold text-sm ${themeClasses.hoverBtn} ${themeClasses.accentText}`}><Copy size={18}/> Копировать</button>
                      </div>
-                     <div className={`p-4 rounded-xl border whitespace-pre-wrap break-words text-sm sm:text-base leading-relaxed bg-slate-50 dark:bg-[#110F0E] border-red-100 dark:border-[#3E3832] text-[#2c241b] dark:text-[#EBE1D1]`}>
+                     <div className={`p-4 rounded-xl border whitespace-pre-wrap break-words text-sm sm:text-base leading-relaxed bg-[#F3EBE0] dark:bg-[#110F0E] border-[#EAE0D0] dark:border-[#3E3832] text-[#2c241b] dark:text-[#EBE1D1]`}>
                        {decryptedText}
                      </div>
                      {decryptError && <div className="mt-4 p-3 rounded-xl bg-orange-500/10 text-orange-600 dark:text-orange-400 text-sm font-medium">{decryptError}</div>}
@@ -1311,7 +1328,7 @@ function RoomScreen({ roomHash, roomSeed, settings, updateSetting, themeClasses,
                 ) : (
                   <div className="space-y-2">
                     {messages.map(msg => (
-                      <div key={msg.id} onClick={() => handleOpenReader(msg)} className={`p-3 sm:p-4 rounded-xl border cursor-pointer transition-all hover:-translate-y-0.5 bg-slate-50 dark:bg-[#110F0E] border-red-100 dark:border-[#3E3832] hover:border-red-400 dark:hover:border-red-500/50 hover:shadow-md dark:hover:shadow-[0_4px_15px_rgba(225,29,72,0.1)]`}>
+                      <div key={msg.id} onClick={() => handleOpenReader(msg)} className={`p-3 sm:p-4 rounded-xl border cursor-pointer transition-all hover:-translate-y-0.5 bg-[#F3EBE0] dark:bg-[#110F0E] border-[#EAE0D0] dark:border-[#3E3832] hover:border-red-400 dark:hover:border-red-500/50 hover:shadow-md dark:hover:shadow-[0_4px_15px_rgba(225,29,72,0.1)]`}>
                         <div className="flex items-center justify-between mb-2">
                            <div className="flex items-center gap-2">
                               <Lock size={16} className={`${themeClasses.accentText} shrink-0`} />
@@ -1391,7 +1408,7 @@ function CountdownTimer({ expiresAt, t }: any) {
 function InfoScreen({ onBack, themeClasses, t }: any) {
   return (
     <div className="w-full max-w-4xl animate-in slide-in-from-bottom-4 my-8 px-2 sm:px-0">
-      <button onClick={onBack} className={`mb-6 px-4 py-2 rounded-xl font-bold text-sm transition-colors border bg-white dark:bg-[#1A1816] shadow-sm dark:shadow-none border-red-100 dark:border-[#3E3832] hover:bg-slate-50 dark:hover:bg-[#2B2622] outline-none focus-visible:ring-2 focus-visible:ring-red-500/50`}>&larr; {t('btnBack')}</button>
+      <button onClick={onBack} className={`mb-6 px-4 py-2 rounded-xl font-bold text-sm transition-colors border bg-[#FDF8EC] dark:bg-[#1A1816] shadow-sm dark:shadow-none border-[#EAE0D0] dark:border-[#3E3832] hover:bg-[#F3EBE0] dark:hover:bg-[#2B2622] outline-none focus-visible:ring-2 focus-visible:ring-red-500/50`}>&larr; {t('btnBack')}</button>
       <div className={`p-6 sm:p-10 rounded-2xl border shadow-xl ${themeClasses.bgCard}`}>
         <h2 className="text-2xl sm:text-3xl font-black mb-6 flex items-center"><Flame className={`mr-3 shrink-0 ${themeClasses.accentText}`} size={32}/> {t('infoHowItWorks')}</h2>
         
@@ -1409,12 +1426,12 @@ function InfoScreen({ onBack, themeClasses, t }: any) {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
-            <div className="p-5 rounded-xl border bg-slate-50 dark:bg-[#1A1816] border-red-100 dark:border-[#3E3832]">
+            <div className="p-5 rounded-xl border bg-[#F3EBE0] dark:bg-[#1A1816] border-[#EAE0D0] dark:border-[#3E3832]">
               <Trash2 className="text-rose-500 mb-3" size={24}/>
               <h4 className="font-bold mb-2">{t('infoHardwareDelTitle')}</h4>
               <p className="text-sm opacity-80">{t('infoHardwareDelText')}</p>
             </div>
-            <div className="p-5 rounded-xl border bg-slate-50 dark:bg-[#1A1816] border-red-100 dark:border-[#3E3832]">
+            <div className="p-5 rounded-xl border bg-[#F3EBE0] dark:bg-[#1A1816] border-[#EAE0D0] dark:border-[#3E3832]">
               <ShieldAlert className="text-emerald-500 mb-3" size={24}/>
               <h4 className="font-bold mb-2">{t('infoBruteTitle')}</h4>
               <p className="text-sm opacity-80">{t('infoBruteText')}</p>
