@@ -4,6 +4,8 @@
 <b>A lightweight, self-hosted, end-to-end encrypted message stash that burns after reading.</b>
 </p>
 
+**🌐 Live Demo:** [smoldpaper.org](https://smoldpaper.org)
+
 In an era where every written word settles forever on corporate servers, we brought back the magic of secret letters that turn to ash.
 
 SmoldPaper is an open-source, client-side encrypted secure drop box. It allows two parties to exchange sensitive information across compromised or monitored channels without leaving a single trace on the server.
