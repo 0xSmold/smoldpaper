@@ -6,6 +6,9 @@ import {
   Sun, Moon, ChevronDown, ChevronUp, Wallet
 } from 'lucide-react';
 
+/**
+ * Environment detection and API configuration
+ */
 const isPreviewEnv = typeof window !== 'undefined' && (
   window.location.protocol === 'blob:' || 
   window.location.protocol === 'data:' || 
@@ -17,7 +20,7 @@ const isPreviewEnv = typeof window !== 'undefined' && (
 const API_URL = 'api.php'; 
 
 // ==========================================
-// БЛОК ЛОКАЛИЗАЦИИ И СЛОВАРЕЙ 
+// LOCALIZATION AND DICTIONARIES
 // ==========================================
 const FALLBACK_DICT: Record<string, any> = {
   ru: {
@@ -67,7 +70,7 @@ const FALLBACK_DICT: Record<string, any> = {
     errNetwork: "Сетевая ошибка.", copied: "Скопировано в буфер",
     disclaimerTitle: "Отказ от ответственности",
     disclaimerText: "Данный сервис предоставляется «как есть» (as is). Владелец сервера, хостинг-провайдер и разработчики не несут никакой ответственности за содержимое передаваемых сообщений и последствия их использования. Инструмент создан исключительно с целью защиты приватности, свободы общения и личных данных пользователей. Использование сервиса для организации незаконной деятельности категорически запрещено.",
-    donateMessage: "❤️ Мы решили бесплатно поделиться этим приложением со всеми людьми в мире, потому что каждый человек имеет право на приватность. Пожалуйста, рассмотрите возможность поддержки на любой из этих кошельков:",
+    donateMessage: "❤️ Мы решили бесплатно поделиться этим приложением со всеми людьми в мире, потому что каждый человек имеет право на приватность.<br/><br/>Это приложение защитит многих от преследования и, возможно, даже <strong>сохранит кому-то жизнь!</strong><br/><br/>Поддержка серверов и развитие проекта требуют ресурсов. Пожалуйста, рассмотрите возможность помочь проекту на любой из этих кошельков:",
     shareTitle: "Поддержите развитие проекта",
     shareText: "Только от вас зависит развитие проекта! Поделитесь ссылкой на этот проект с близкими и со всем миром, чтобы люди всегда имели возможность общаться конфиденциально даже там, где это на первый взгляд невозможно!",
     btnShare: "Скопировать ссылку на проект",
@@ -124,7 +127,7 @@ const FALLBACK_DICT: Record<string, any> = {
     read1: "1 time", read2: "2 times", read3: "3 times", read5: "5 times", read10: "10 times", read20: "20 times",
     errNetwork: "Network error.", copied: "Copied to clipboard",
     disclaimerTitle: "Disclaimer", disclaimerText: "This service is provided \"as is\". The owner assumes no liability. Using this service for illegal activities is strictly prohibited.",
-    donateMessage: "❤️ We decided to share this app for free with everyone in the world because everyone has the right to privacy. Please consider supporting us at any of these wallets:",
+    donateMessage: "❤️ We decided to share this app for free with everyone in the world because everyone has the right to privacy.<br/><br/>This app will protect many from persecution and might even <strong>save someone's life!</strong><br/><br/>Maintaining servers and developing the project requires funding. Please consider supporting the project at any of these wallets:",
     shareTitle: "Help the project grow",
     shareText: "The development of this project depends entirely on you! Share the link to this project with your friends and the whole world so people always have the ability to communicate confidentially, even where it seems impossible at first glance!",
     btnShare: "Copy link to service",
@@ -180,7 +183,7 @@ const FALLBACK_DICT: Record<string, any> = {
     read1: "1 Mal", read2: "2 Mal", read3: "3 Mal", read5: "5 Mal", read10: "10 Mal", read20: "20 Mal",
     errNetwork: "Netzwerkfehler.", copied: "Kopiert",
     disclaimerTitle: "Haftungsausschluss", disclaimerText: "Dieser Dienst wird \"wie besehen\" bereitgestellt. Die Nutzung für illegale Aktivitäten ist strengstens untersagt.",
-    donateMessage: "❤️ Wir haben beschlossen, diese App kostenlos mit allen Menschen auf der Welt zu teilen, da jeder das Recht auf Privatsphäre hat. Bitte ziehen Sie eine Unterstützung auf eine dieser Wallets in Betracht:",
+    donateMessage: "❤️ Wir haben beschlossen, diese App kostenlos mit allen Menschen auf der Welt zu teilen, da jeder das Recht auf Privatsphäre hat.<br/><br/>Diese App wird viele vor Verfolgung schützen und vielleicht sogar <strong>jemandem das Leben retten!</strong><br/><br/>Der Betrieb der Server und die Weiterentwicklung des Projekts kosten Geld. Bitte ziehen Sie in Betracht, uns zu unterstützen:",
     shareTitle: "Helfen Sie dem Projekt zu wachsen",
     shareText: "Die Entwicklung dieses Projekts hängt ganz von Ihnen ab! Teilen Sie den Link mit Freunden und der ganzen Welt, damit Menschen immer vertraulich kommunizieren können, auch wenn es auf den ersten Blick unmöglich erscheint!",
     btnShare: "Link zum Service kopieren",
@@ -236,7 +239,7 @@ const FALLBACK_DICT: Record<string, any> = {
     read1: "1 fois", read2: "2 fois", read3: "3 fois", read5: "5 fois", read10: "10 fois", read20: "20 fois",
     errNetwork: "Erreur réseau.", copied: "Copié",
     disclaimerTitle: "Clause de non-responsabilité", disclaimerText: "Ce service est fourni \"tel quel\". L'utilisation pour des activités illégales est strictement interdite.",
-    donateMessage: "❤️ Nous avons décidé de partager cette application gratuitement avec le monde entier, car chacun a droit à la vie privée. Merci d'envisager de nous soutenir sur l'un de ces portefeuilles:",
+    donateMessage: "❤️ Nous avons décidé de partager cette application gratuitement avec le monde entier, car chacun a droit à la vie privée.<br/><br/>Cette application sauvera beaucoup de gens de la persécution et pourrait même <strong>sauver une vie !</strong><br/><br/>La maintenance des serveurs et le développement du projet nécessitent des fonds. Merci d'envisager de nous soutenir :",
     shareTitle: "Aidez le projet à grandir",
     shareText: "Le développement de ce projet dépend entièrement de vous ! Partagez le lien avec vos proches et avec le monde entier afin que les gens aient toujours la possibilité de communiquer en toute confidentialité, même là où cela semble impossible à première vue !",
     btnShare: "Copier le lien du service",
@@ -280,7 +283,7 @@ const FALLBACK_DICT: Record<string, any> = {
     infoAlgOutro: "🕵️‍♂️ <em>Chatea a la vista de todos sin levantar sospechas. ¡Intercambien secretos en SmoldPaper!</em>",
 
     infoTechTitle: "Cómo funciona el cifrado", infoTechText: "Los datos se cifran localmente con AES-GCM 256-bit. El servidor funciona según el principio Zero-Knowledge.",
-    infoRisksTitle: "Vectores de ataque y riesgos", infoRisksText: "Tenga cuidado con el Shoulder Surfing, contraseñas débiles y la ingeniería social.",
+    infoRisksTitle: "Vectores de ataque и riesgos", infoRisksText: "Tenga cuidado con el Shoulder Surfing, contraseñas débiles и la ingeniería social.",
     infoHardwareDelTitle: "Combustión física", infoHardwareDelText: "La base de datos elimina el registro permanentemente.",
     infoBruteTitle: "Protección", infoBruteText: "Tras 5 intentos fallidos, el contenedor se autodestruye.",
     infoFooter: "No se recopilan IPs ni cookies.", timeExpired: "Quemado. Eliminando...",
@@ -292,15 +295,15 @@ const FALLBACK_DICT: Record<string, any> = {
     read1: "1 vez", read2: "2 veces", read3: "3 veces", read5: "5 veces", read10: "10 veces", read20: "20 veces",
     errNetwork: "Error de red.", copied: "Copiado",
     disclaimerTitle: "Descargo de responsabilidad", disclaimerText: "Este servicio se proporciona \"tal cual\". El uso para actividades ilegales está estrictamente prohibido.",
-    donateMessage: "❤️ Hemos decidido compartir esta aplicación de forma gratuita con todo el mundo porque cada persona tiene derecho a la privacidad. Considere apoyarnos en cualquiera de estas billeteras:",
+    donateMessage: "❤️ Hemos decidido compartir esta aplicación de forma gratuita con todo el mundo porque cada persona tiene derecho a la privacidad.<br/><br/>¡Esta aplicación protegerá a muchos de la persecución e incluso podría <strong>salvar la vida de alguien!</strong><br/><br/>Mantener los servidores и desarrollar el proyecto requiere ресурсы. Por favor, considera apoyarnos:",
     shareTitle: "Ayuda a que el proyecto crezca",
-    shareText: "¡El desarrollo de este proyecto depende completamente de ti! ¡Comparte el enlace con tus seres queridos y con todo el mundo para que las personas siempre tengan la capacidad de comunicarse de manera confidencial, incluso donde a primera vista parece imposible!",
+    shareText: "¡El desarrollo de este proyecto depende completamente de ti! ¡Comparte el enlace con tus seres queridos и con todo el mundo для того, чтобы у людей всегда была возможность общаться конфиденциально, даже там, где на первый взгляд это кажется невозможным!",
     btnShare: "Copiar enlace al servicio",
     
     btnAbout: "Acerca de",
     btnShowWallets: "Mostrar billeteras",
     btnHideWallets: "Ocultar billeteras",
-    btnInviteRoom: "Invitar al escondite",
+    btnInviteRoom: "Inviter al escondite",
     btnHowItWorks: "Cómo funciona",
     errSeedShort: "La frase semilla debe tener al menos 8 caracteres.",
     errNoHttps: "Advertencia: no hay HTTPS o la API Crypto no está disponible. Cifrado deshabilitado.",
@@ -320,7 +323,7 @@ const defaultFooter = `End-to-End Encrypted. We don't store keys, read messages,
 </div>`;
 
 // ==========================================
-// БЛОК ЭМУЛЯЦИИ ДЛЯ ПЕСОЧНИЦЫ
+// SANDBOX EMULATION BLOCK (FOR PREVIEW)
 // ==========================================
 let mockDB: any = { 
   messages: [], 
@@ -382,7 +385,11 @@ const apiCall = async (payload: any) => {
   }
 
   try {
-    const res = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+    const res = await fetch(API_URL, { 
+      method: 'POST', 
+      headers: { 'Content-Type': 'application/json' }, 
+      body: JSON.stringify(payload) 
+    });
     if (!res.ok) throw new Error('Network error');
     return await res.json();
   } catch (e: any) { 
@@ -392,7 +399,7 @@ const apiCall = async (payload: any) => {
 };
 
 // ==========================================
-// КРИПТОГРАФИЧЕСКОЕ ЯДРО
+// CRYPTOGRAPHIC CORE (Web Crypto API)
 // ==========================================
 const checkCryptoAPI = () => {
     return !!(window.crypto && window.crypto.subtle);
@@ -436,7 +443,7 @@ const hashString = async (str: string) => {
 };
 
 // ==========================================
-// МОДУЛЬ ЗВУКОВ
+// AUDIO MODULE
 // ==========================================
 const playTone = (type: string) => {
   try {
@@ -461,7 +468,7 @@ const playTone = (type: string) => {
 };
 
 // ==========================================
-// КОМПОНЕНТ ВИРУСНОСТИ И ДОНАТОВ
+// SUPPORT AND VIRALITY COMPONENT
 // ==========================================
 function SupportBlock({ t, themeClasses, showToast }: any) {
   const [copiedShare, setCopiedShare] = useState(false);
@@ -488,7 +495,7 @@ function SupportBlock({ t, themeClasses, showToast }: any) {
         showToast(t('copied'), 'success');
       }
     } catch(e: any) {
-      showToast("Ошибка копирования (попробуйте выделить текст вручную)", 'error');
+      showToast("Copy error (try selecting text manually)", 'error');
     } 
     document.body.removeChild(ta);
   };
@@ -523,7 +530,7 @@ function SupportBlock({ t, themeClasses, showToast }: any) {
                   <span className={`font-bold text-[11px] sm:text-xs w-36 shrink-0 ${themeClasses.accentText}`}>{w.name}</span>
                   <span className="font-mono text-xs sm:text-sm truncate opacity-70 cursor-text select-all">{w.address}</span>
                 </div>
-                <button onClick={() => copyToClipboard(w.address)} className={`p-2 shrink-0 rounded-lg transition-colors ${themeClasses.hoverBtn} ${themeClasses.accentText}`} title="Копировать">
+                <button onClick={() => copyToClipboard(w.address)} className={`p-2 shrink-0 rounded-lg transition-colors ${themeClasses.hoverBtn} ${themeClasses.accentText}`} title="Copy">
                   <Copy size={16} />
                 </button>
               </div>
@@ -545,7 +552,7 @@ function SupportBlock({ t, themeClasses, showToast }: any) {
 }
 
 // ==========================================
-// КОМПОНЕНТ ИНФОГРАФИКИ "КАК РАБОТАЕТ"
+// INFOGRAPHIC COMPONENT
 // ==========================================
 function HowItWorksInfographic({ t }: any) {
   const steps = [
@@ -574,7 +581,7 @@ function HowItWorksInfographic({ t }: any) {
 }
 
 // ==========================================
-// ГЛАВНОЕ ПРИЛОЖЕНИЕ (Маршрутизатор)
+// MAIN APP COMPONENT (Router)
 // ==========================================
 export default function App() {
   const [view, setView] = useState('login'); 
@@ -587,14 +594,14 @@ export default function App() {
     return false;
   });
   
-  // TOAST НОТИФИКАЦИИ ВМЕСТО ALERT
+  // TOAST NOTIFICATIONS
   const [toast, setToast] = useState<any>(null);
   const showToast = (message: string, type: string = 'success') => {
     setToast({ message, type });
     setTimeout(() => setToast(null), 3000);
   };
 
-  const [isLoginInfoOpen, setIsLoginInfoOpen] = useState(true); // Состояние сворачивания инструкции на главной
+  const [isLoginInfoOpen, setIsLoginInfoOpen] = useState(true); 
   const [serverDict, setServerDict] = useState<any>({ ru: {}, en: {}, de: {}, fr: {}, es: {} });
   const [footerHtml, setFooterHtml] = useState(defaultFooter);
 
@@ -637,7 +644,7 @@ export default function App() {
       
       if (code) {
         if (code.trim().length < 8) {
-          showToast(t('errSeedShort') || "Сид-фраза должна содержать не менее 8 символов.", 'error');
+          showToast(t('errSeedShort') || "Seed phrase must be at least 8 characters.", 'error');
           window.history.replaceState({}, document.title, window.location.pathname);
           return;
         }
@@ -659,7 +666,7 @@ export default function App() {
       }
     };
     initUrlLogin();
-  }, [lang]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [lang]); 
 
   useEffect(() => {
     const initSettings = async () => {
@@ -753,8 +760,7 @@ export default function App() {
   };
 
   // ==========================================
-  // ГЛОБАЛЬНЫЕ КЛАССЫ СТИЛЕЙ
-  // ИСПРАВЛЕНИЯ ПАЛИТРЫ (Серый фон / Дорогая бумага / Moleskine стиль): 
+  // GLOBAL STYLE CLASSES (Moleskine / Paper Style)
   // ==========================================
   const themeClasses = {
     bgApp: 'bg-[#E5E7EB] dark:bg-[#0F0E0D] text-[#2c241b] dark:text-[#D6C8B3]',
@@ -830,7 +836,7 @@ export default function App() {
         {view === 'login' && (
           <div className="flex flex-col items-center justify-center w-full max-w-5xl animate-in fade-in zoom-in-95 my-4 sm:my-8 gap-8 sm:gap-12">
             
-            {/* ИНСТРУКЦИЯ (СВОРАЧИВАЕМАЯ) */}
+            {/* COLLAPSIBLE INSTRUCTION BLOCK */}
             <div className="w-full flex flex-col items-center">
               <div 
                 className={`text-center mb-4 sm:mb-6 cursor-pointer select-none group flex flex-col items-center`}
@@ -864,7 +870,6 @@ export default function App() {
                   <div className="w-full mb-8 rounded-xl overflow-hidden flex flex-col justify-center items-center [&_iframe]:w-full [&_iframe]:aspect-video [&_iframe]:rounded-xl" dangerouslySetInnerHTML={{ __html: t('loginEmbedHtml') }} />
                 )}
 
-                {/* ПРЕДУПРЕЖДЕНИЕ О HTTP */}
                 {!checkCryptoAPI() && !isPreviewEnv && (
                   <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-600 dark:text-red-400 text-sm font-bold text-center animate-pulse">
                     {t('errNoHttps')}
@@ -927,7 +932,7 @@ export default function App() {
 }
 
 // ==========================================
-// ПАНЕЛЬ УПРАВЛЕНИЯ (АДМИНКА)
+// ADMIN PANEL (SETTINGS AND TEXTS)
 // ==========================================
 function AdminScreen({ adminPass, serverDict, setServerDict, footerHtml, setFooterHtml, themeClasses, t, showToast }: any) {
   const [activeTab, setActiveTab] = useState('texts');
@@ -956,16 +961,18 @@ function AdminScreen({ adminPass, serverDict, setServerDict, footerHtml, setFoot
   };
 
   const handleSavePass = async () => {
-    if (newPass.length < 6) return showToast("Пароль минимум 6 символов", 'error');
+    const trimmedPass = newPass.trim();
+    if (trimmedPass.length < 6) return showToast("Password must be at least 6 characters", 'error');
     setSaveStatus('saving');
-    const res: any = await apiCall({ action: 'save_settings', key: 'admin_password', value: newPass, admin_password: adminPass });
+    const res: any = await apiCall({ action: 'save_settings', key: 'admin_password', value: trimmedPass, admin_password: adminPass });
     if (res.success) { 
       setSaveStatus('saved'); 
       setNewPass(''); 
-      showToast("Пароль изменен! Войдите заново.", 'success'); 
+      showToast("Password updated! Please re-login.", 'success'); 
       setTimeout(() => window.location.reload(), 1500); 
     } else { 
       setSaveStatus('error'); 
+      showToast("Server error during password update", 'error');
     }
   };
 
@@ -976,16 +983,15 @@ function AdminScreen({ adminPass, serverDict, setServerDict, footerHtml, setFoot
           <Shield 
             className={`mr-2 cursor-pointer transition-transform active:scale-75 ${themeClasses.accentText}`} 
             onClick={() => setSecretClicks(c => c + 1)}
-            {...({ title: "Панель защищена" } as any)}
           /> 
-          Панель Администратора
+          Admin Panel
         </h2>
       </div>
 
       <div className={`flex gap-2 mb-6 p-1 rounded-xl overflow-x-auto mx-2 ${themeClasses.bgCard} shadow-sm dark:shadow-none`}>
-        <button onClick={() => setActiveTab('texts')} className={`flex-1 min-w-[100px] py-2 px-4 rounded-lg font-bold text-sm transition-all outline-none focus-visible:ring-2 focus-visible:ring-red-500/50 ${activeTab === 'texts' ? themeClasses.btnPrimary : themeClasses.hoverBtn}`}>Тексты</button>
-        <button onClick={() => setActiveTab('footer')} className={`flex-1 min-w-[100px] py-2 px-4 rounded-lg font-bold text-sm transition-all outline-none focus-visible:ring-2 focus-visible:ring-red-500/50 ${activeTab === 'footer' ? themeClasses.btnPrimary : themeClasses.hoverBtn}`}>Подвал (Футер)</button>
-        <button onClick={() => setActiveTab('settings')} className={`flex-1 min-w-[100px] py-2 px-4 rounded-lg font-bold text-sm transition-all outline-none focus-visible:ring-2 focus-visible:ring-red-500/50 ${activeTab === 'settings' ? themeClasses.btnPrimary : themeClasses.hoverBtn}`}>Настройки</button>
+        <button onClick={() => setActiveTab('texts')} className={`flex-1 min-w-[100px] py-2 px-4 rounded-lg font-bold text-sm transition-all outline-none focus-visible:ring-2 focus-visible:ring-red-500/50 ${activeTab === 'texts' ? themeClasses.btnPrimary : themeClasses.hoverBtn}`}>Texts</button>
+        <button onClick={() => setActiveTab('footer')} className={`flex-1 min-w-[100px] py-2 px-4 rounded-lg font-bold text-sm transition-all outline-none focus-visible:ring-2 focus-visible:ring-red-500/50 ${activeTab === 'footer' ? themeClasses.btnPrimary : themeClasses.hoverBtn}`}>Footer HTML</button>
+        <button onClick={() => setActiveTab('settings')} className={`flex-1 min-w-[100px] py-2 px-4 rounded-lg font-bold text-sm transition-all outline-none focus-visible:ring-2 focus-visible:ring-red-500/50 ${activeTab === 'settings' ? themeClasses.btnPrimary : themeClasses.hoverBtn}`}>Settings</button>
       </div>
 
       <div className={`p-4 sm:p-6 rounded-2xl border ${themeClasses.bgCard}`}>
@@ -993,21 +999,21 @@ function AdminScreen({ adminPass, serverDict, setServerDict, footerHtml, setFoot
           <div className="space-y-6">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div>
-                <p className={`text-sm mb-2 ${themeClasses.textMuted}`}>Язык для редактирования. Оставьте поле пустым для базового текста.</p>
+                <p className={`text-sm mb-2 ${themeClasses.textMuted}`}>Language for editing. Leave blank for fallback.</p>
                 <div className={`flex gap-1 p-1 rounded-lg inline-flex border bg-[#F3EBE0] dark:bg-[#0F0E0D] border-[#EAE0D0] dark:border-[#3E3832]`}>
                   {['ru', 'en', 'de', 'fr', 'es'].map(l => (
                     <button key={l} onClick={() => setEditLang(l)} className={`px-4 py-1.5 rounded-md text-xs font-bold uppercase transition-all outline-none focus-visible:ring-2 focus-visible:ring-red-500/50 ${editLang === l ? themeClasses.btnPrimary : themeClasses.hoverBtn}`}>{l}</button>
                   ))}
                 </div>
               </div>
-              <button onClick={handleSaveTexts} disabled={saveStatus === 'saving'} className={`px-6 py-2.5 rounded-xl font-bold text-sm flex items-center transition-all outline-none focus-visible:ring-2 focus-visible:ring-red-500/50 ${saveStatus === 'saved' ? 'bg-emerald-600 text-white dark:bg-emerald-700' : themeClasses.btnPrimary}`}><Save size={16} className="mr-2"/> {saveStatus === 'saving' ? 'Сохранение...' : saveStatus === 'saved' ? 'Сохранено!' : 'Сохранить тексты'}</button>
+              <button onClick={handleSaveTexts} disabled={saveStatus === 'saving'} className={`px-6 py-2.5 rounded-xl font-bold text-sm flex items-center transition-all outline-none focus-visible:ring-2 focus-visible:ring-red-500/50 ${saveStatus === 'saved' ? 'bg-emerald-600 text-white dark:bg-emerald-700' : themeClasses.btnPrimary}`}><Save size={16} className="mr-2"/> {saveStatus === 'saving' ? 'Saving...' : saveStatus === 'saved' ? 'Saved!' : 'Save Texts'}</button>
             </div>
             <div className="grid grid-cols-1 gap-4 max-h-[60vh] overflow-y-auto pr-2">
               {Object.keys(FALLBACK_DICT[editLang] || FALLBACK_DICT.en)
                 .filter(key => key !== 'donateMessage' || secretClicks >= 5)
                 .map(key => (
                 <div key={key} className={`p-4 rounded-xl border bg-[#F3EBE0] dark:bg-[#110F0E] border-[#EAE0D0] dark:border-[#3E3832]`}>
-                  <label className={`block text-xs font-mono mb-2 ${themeClasses.accentText}`}>{key === 'loginEmbedHtml' ? 'Код видеоплеера (YouTube/Vimeo Iframe)' : key}</label>
+                  <label className={`block text-xs font-mono mb-2 ${themeClasses.accentText}`}>{key}</label>
                   <textarea 
                     value={localDict[editLang]?.[key] !== undefined ? localDict[editLang][key] : (FALLBACK_DICT[editLang]?.[key] || '')} 
                     onChange={e => setLocalDict((prev: any) => ({...prev, [editLang]: {...(prev[editLang]||{}), [key]: e.target.value}}))} 
@@ -1021,18 +1027,18 @@ function AdminScreen({ adminPass, serverDict, setServerDict, footerHtml, setFoot
 
         {activeTab === 'footer' && (
           <div className="space-y-4">
-            <p className={`text-sm ${themeClasses.textMuted}`}>Текст в самом низу приложения. Поддерживает HTML теги.</p>
+            <p className={`text-sm ${themeClasses.textMuted}`}>Text at the bottom of the page. Supports HTML.</p>
             <textarea value={localFooter} onChange={e => setLocalFooter(e.target.value)} className={`w-full h-32 p-4 rounded-xl border text-sm resize-y ${themeClasses.inputBg}`} />
-            <button onClick={handleSaveFooter} disabled={saveStatus === 'saving'} className={`px-6 py-2.5 rounded-xl font-bold text-sm flex items-center transition-all outline-none focus-visible:ring-2 focus-visible:ring-red-500/50 ${saveStatus === 'saved' ? 'bg-emerald-600 text-white dark:bg-emerald-700' : themeClasses.btnPrimary}`}><Save size={16} className="mr-2"/> Сохранить футер</button>
+            <button onClick={handleSaveFooter} disabled={saveStatus === 'saving'} className={`px-6 py-2.5 rounded-xl font-bold text-sm flex items-center transition-all outline-none focus-visible:ring-2 focus-visible:ring-red-500/50 ${saveStatus === 'saved' ? 'bg-emerald-600 text-white dark:bg-emerald-700' : themeClasses.btnPrimary}`}><Save size={16} className="mr-2"/> Save Footer</button>
           </div>
         )}
 
         {activeTab === 'settings' && (
           <div className="space-y-4">
-            <p className={`text-sm ${themeClasses.textMuted}`}>Смена пароля для входа в эту панель администратора.</p>
-            <input type="text" value={newPass} onChange={e => setNewPass(e.target.value)} placeholder="Новый пароль" className={`w-full max-w-sm px-4 py-3 rounded-xl border font-medium ${themeClasses.inputBg}`} />
+            <p className={`text-sm ${themeClasses.textMuted}`}>Change Admin Panel password.</p>
+            <input type="text" value={newPass} onChange={e => setNewPass(e.target.value)} placeholder="New Password" className={`w-full max-w-sm px-4 py-3 rounded-xl border font-medium ${themeClasses.inputBg}`} />
             <br/>
-            <button onClick={handleSavePass} disabled={saveStatus === 'saving'} className={`px-6 py-2.5 rounded-xl font-bold text-sm flex items-center transition-all outline-none focus-visible:ring-2 focus-visible:ring-red-500/50 ${saveStatus === 'saved' ? 'bg-emerald-600 text-white dark:bg-emerald-700' : themeClasses.btnPrimary}`}><Save size={16} className="mr-2"/> Сохранить пароль</button>
+            <button onClick={handleSavePass} disabled={saveStatus === 'saving'} className={`px-6 py-2.5 rounded-xl font-bold text-sm flex items-center transition-all outline-none focus-visible:ring-2 focus-visible:ring-red-500/50 ${saveStatus === 'saved' ? 'bg-emerald-600 text-white dark:bg-emerald-700' : themeClasses.btnPrimary}`}><Save size={16} className="mr-2"/> Save Password</button>
           </div>
         )}
       </div>
@@ -1041,7 +1047,7 @@ function AdminScreen({ adminPass, serverDict, setServerDict, footerHtml, setFoot
 }
 
 // ==========================================
-// КОМПОНЕНТ ТАЙНИКА И ПЕРЕПИСКИ
+// STASH ROOM COMPONENT
 // ==========================================
 function RoomScreen({ roomHash, roomSeed, settings, updateSetting, themeClasses, soundType, t, showToast }: any) {
   const [messages, setMessages] = useState<any[]>([]);
@@ -1160,7 +1166,7 @@ function RoomScreen({ roomHash, roomSeed, settings, updateSetting, themeClasses,
       document.execCommand('copy'); 
       showToast(t('copied'), 'success');
     } catch(e: any) {
-      showToast("Ошибка копирования (попробуйте выделить текст вручную)", 'error');
+      showToast("Copy error (try manually)", 'error');
     } 
     document.body.removeChild(ta);
   };
@@ -1176,7 +1182,7 @@ function RoomScreen({ roomHash, roomSeed, settings, updateSetting, themeClasses,
   return (
     <div className="w-full max-w-5xl flex flex-col gap-4 sm:gap-6 my-2 sm:my-4 px-2 sm:px-0">
       
-      {/* ПРИГЛАШЕНИЕ И ИНСТРУКЦИЯ */}
+      {/* INVITE AND INFO BAR */}
       <div className={`p-4 sm:p-6 rounded-2xl border flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4 ${themeClasses.bgCard}`}>
          <button onClick={handleShareRoomInvite} className={`w-full sm:w-auto px-6 py-3.5 sm:py-3 rounded-xl font-bold flex items-center justify-start sm:justify-center transition-all active:scale-95 ${themeClasses.hoverBtn}`}>
            {copiedInvite ? <Check size={20} className="mr-3 sm:mr-2 text-emerald-500"/> : <UserPlus size={20} className={`mr-3 sm:mr-2 ${themeClasses.accentText}`}/>}
@@ -1196,7 +1202,7 @@ function RoomScreen({ roomHash, roomSeed, settings, updateSetting, themeClasses,
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 items-start">
-        {/* ОТПРАВКА */}
+        {/* COMPOSE SECTION */}
         <div className={`rounded-2xl border overflow-hidden ${themeClasses.bgCard}`}>
           <div 
             className={`p-4 sm:p-6 sm:pb-4 flex justify-between items-center cursor-pointer select-none transition-colors hover:bg-[#EAE0D0]/50 dark:hover:bg-white/5 border-b border-transparent dark:border-[#3E3832]`}
@@ -1268,7 +1274,7 @@ function RoomScreen({ roomHash, roomSeed, settings, updateSetting, themeClasses,
           )}
         </div>
 
-        {/* СПИСОК / ЧТЕНИЕ */}
+        {/* LIST AND READ SECTION */}
         <div className={`flex flex-col min-h-[450px] sm:min-h-[600px] h-full rounded-2xl border overflow-hidden relative ${themeClasses.bgCard}`}>
           
           {readingMsg ? (
@@ -1278,7 +1284,7 @@ function RoomScreen({ roomHash, roomSeed, settings, updateSetting, themeClasses,
                    &larr; {t('btnBack')}
                  </button>
                  <span className="font-mono text-xs opacity-50 hidden sm:block">ID: {readingMsg.id.substring(0,8)}</span>
-                 <button onClick={() => setReadingMsg(null)} className={`p-1.5 rounded-lg transition-colors ${themeClasses.hoverBtn}`} title="Закрыть окно">
+                 <button onClick={() => setReadingMsg(null)} className={`p-1.5 rounded-lg transition-colors ${themeClasses.hoverBtn}`} title="Close">
                    <X size={20} />
                  </button>
               </div>
@@ -1299,7 +1305,7 @@ function RoomScreen({ roomHash, roomSeed, settings, updateSetting, themeClasses,
                   <div className="animate-in fade-in">
                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
                        <span className="inline-flex items-center px-3 py-1.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-bold uppercase self-start"><Unlock size={14} className="mr-1.5"/> {t('decryptedLocal')}</span>
-                       <button onClick={() => { copyToClipboard(decryptedText); }} className={`p-2 rounded-lg flex items-center justify-center gap-2 font-bold text-sm ${themeClasses.hoverBtn} ${themeClasses.accentText}`}><Copy size={18}/> Копировать</button>
+                       <button onClick={() => { copyToClipboard(decryptedText); }} className={`p-2 rounded-lg flex items-center justify-center gap-2 font-bold text-sm ${themeClasses.hoverBtn} ${themeClasses.accentText}`}><Copy size={18}/> Copy</button>
                      </div>
                      <div className={`p-4 rounded-xl border whitespace-pre-wrap break-words text-sm sm:text-base leading-relaxed bg-[#F3EBE0] dark:bg-[#110F0E] border-[#EAE0D0] dark:border-[#3E3832] text-[#2c241b] dark:text-[#EBE1D1]`}>
                        {decryptedText}
@@ -1357,7 +1363,6 @@ function RoomScreen({ roomHash, roomSeed, settings, updateSetting, themeClasses,
         </div>
       </div>
 
-      {/* НИЖНИЙ БЛОК ДОНАТОВ ВНУТРИ КОМНАТЫ */}
       <div className="w-full">
          <SupportBlock t={t} themeClasses={themeClasses} showToast={showToast} />
       </div>
@@ -1365,6 +1370,9 @@ function RoomScreen({ roomHash, roomSeed, settings, updateSetting, themeClasses,
   );
 }
 
+// ==========================================
+// COUNTDOWN TIMER COMPONENT
+// ==========================================
 function CountdownTimer({ expiresAt, t }: any) {
   const [timeLeft, setTimeLeft] = useState('');
   const [isUrgent, setIsUrgent] = useState(false);
@@ -1405,6 +1413,9 @@ function CountdownTimer({ expiresAt, t }: any) {
   return <span className={classes}>{timeLeft}</span>;
 }
 
+// ==========================================
+// INFORMATION SCREEN COMPONENT
+// ==========================================
 function InfoScreen({ onBack, themeClasses, t }: any) {
   return (
     <div className="w-full max-w-4xl animate-in slide-in-from-bottom-4 my-8 px-2 sm:px-0">
@@ -1444,7 +1455,7 @@ function InfoScreen({ onBack, themeClasses, t }: any) {
           </div>
 
           <p className="text-xs opacity-50 mt-8 pt-6 border-t border-inherit text-center">
-             {t('infoFooter') || 'Никакие IP-адреса, логи и куки-файлы не собираются.'}
+             {t('infoFooter') || 'No IP addresses, logs or cookies are collected.'}
           </p>
         </div>
       </div>
