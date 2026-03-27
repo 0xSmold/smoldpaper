@@ -46,10 +46,11 @@ try {
         $db->exec("INSERT OR IGNORE INTO settings (key, value) VALUES ('admin_password', 'admin123')");
         $db->exec("INSERT OR IGNORE INTO settings (key, value) VALUES ('footer_html', 'End-to-End Encrypted. <a href=\"https://github.com/0xSmold/smoldpaper\" target=\"_blank\">GitHub</a>')");
         
-        // Auto-protect DB file
+        // Auto-protect ONLY the database files (Fixed 403 Forbidden issue)
         $htaccess = __DIR__ . '/.htaccess';
         if (!file_exists($htaccess)) {
-            file_put_contents($htaccess, "Order allow,deny\nDeny from all\n<Files \"api.php\">\nAllow from all\n</Files>");
+            $htaccessContent = "<FilesMatch \"\\.(sqlite|sqlite3|db)$\">\nOrder allow,deny\nDeny from all\n</FilesMatch>";
+            file_put_contents($htaccess, $htaccessContent);
         }
     }
 
