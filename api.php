@@ -5,6 +5,7 @@
  * - Stores encrypted payloads only
  * - Physical DELETE on read/expiration
  * - Brute-force protection
+ * - High Performance (WAL, Indexes, Memory Cache)
  */
 
 header("Content-Type: application/json");
@@ -23,13 +24,20 @@ try {
     $db = new PDO('sqlite:' . $dbFile);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // УСКОРЕНИЕ 1: Включаем режим WAL (Write-Ahead Logging) для параллельного чтения и записи
-    // Это полностью устраняет ошибку "Database is locked" и зависания на 5 секунд
+    // ==========================================
+    // НАСТРОЙКИ СВЕРХВЫСОКОЙ ПРОИЗВОДИТЕЛЬНОСТИ
+    // ==========================================
+    // 1. Режим WAL (Параллельное чтение и запись)
     $db->exec("PRAGMA journal_mode = WAL;");
     $db->exec("PRAGMA synchronous = NORMAL;");
+    // 2. Ожидание блокировки базы (5 секунд)
     $db->exec("PRAGMA busy_timeout = 5000;");
+    // 3. Перенос временных таблиц в оперативную память
+    $db->exec("PRAGMA temp_store = MEMORY;");
+    // 4. Выделение 20 МБ оперативной памяти под кэш
+    $db->exec("PRAGMA cache_size = -20000;");
 
-    // Initial Database Setup
+    // Первичная настройка базы данных
     if ($firstInit) {
         $db->exec("CREATE TABLE IF NOT EXISTS messages (
             id TEXT PRIMARY KEY,
@@ -48,23 +56,34 @@ try {
             value TEXT
         )");
 
-        // Set default admin credentials and footer
+        // Настройки по умолчанию
         $db->exec("INSERT OR IGNORE INTO settings (key, value) VALUES ('admin_password', 'admin123')");
         $db->exec("INSERT OR IGNORE INTO settings (key, value) VALUES ('footer_html', 'End-to-End Encrypted. <a href=\"https://github.com/0xSmold/smoldpaper\" target=\"_blank\">GitHub</a>')");
-        
-        // Auto-protect ONLY the database files (Added protection for WAL temp files)
-        $htaccess = __DIR__ . '/.htaccess';
-        if (!file_exists($htaccess)) {
-            $htaccessContent = "DirectoryIndex index.html\n<FilesMatch \"\\.(sqlite|sqlite3|db|wal|shm)$\">\nOrder allow,deny\nDeny from all\n</FilesMatch>";
-            file_put_contents($htaccess, $htaccessContent);
-        }
     }
+
+    // ==========================================
+    // ЗАЩИТА И СКОРОСТЬ МАРШРУТИЗАЦИИ
+    // ==========================================
+    // Создание защитного файла .htaccess с переадресацией на index.html
+    // Выполняется ВСЕГДА, если файла нет (даже если база уже создана)
+    $htaccess = __DIR__ . '/.htaccess';
+    if (!file_exists($htaccess)) {
+        $htaccessContent = "DirectoryIndex index.html\n<FilesMatch \"\\.(sqlite|sqlite3|db|wal|shm)$\">\nOrder allow,deny\nDeny from all\n</FilesMatch>";
+        file_put_contents($htaccess, $htaccessContent);
+    }
+
+    // ==========================================
+    // СОЗДАНИЕ ИНДЕКСОВ ДЛЯ ВЫСОКИХ НАГРУЗОК
+    // ==========================================
+    // Даже если база уже существует, этот код создаст "оглавление" для быстрого поиска
+    $db->exec("CREATE INDEX IF NOT EXISTS idx_room_hash ON messages(room_hash);");
+    $db->exec("CREATE INDEX IF NOT EXISTS idx_expires_at ON messages(expires_at);");
+
 
     $input = json_decode(file_get_contents('php://input'), true);
     $action = $input['action'] ?? '';
 
-    // УСКОРЕНИЕ 2: Очистка (Garbage Collector) теперь запускается с шансом 10%
-    // Это снимает 90% нагрузки с диска, оставляя сервер молниеносно быстрым
+    // ОПТИМИЗАЦИЯ: Очистка старых сообщений (Garbage Collector) с шансом 10%
     if (rand(1, 10) === 1) {
         $db->exec("DELETE FROM messages WHERE expires_at < DATETIME('now')");
     }
@@ -105,7 +124,7 @@ try {
 
         case 'get_messages':
             $roomHash = $input['room_hash'] ?? '';
-            // УСКОРЕНИЕ 3: Фильтруем сгоревшие сообщения "на лету" при чтении
+            // Фильтруем сгоревшие сообщения "на лету" при чтении
             $stmt = $db->prepare("SELECT id, public_label, created_at, expires_at, max_reads, current_reads, failed_attempts FROM messages WHERE room_hash = ? AND expires_at >= DATETIME('now') ORDER BY created_at DESC");
             $stmt->execute([$roomHash]);
             echo json_encode(['success' => true, 'messages' => $stmt->fetchAll(PDO::FETCH_ASSOC)]);
@@ -127,7 +146,7 @@ try {
         case 'get_payload':
             $id = $input['id'] ?? '';
             $roomHash = $input['room_hash'] ?? '';
-            // УСКОРЕНИЕ 3: Блокируем чтение сгоревших
+            // Блокируем чтение уже сгоревших
             $stmt = $db->prepare("SELECT payload FROM messages WHERE id = ? AND room_hash = ? AND expires_at >= DATETIME('now')");
             $stmt->execute([$id, $roomHash]);
             $payload = $stmt->fetchColumn();
