@@ -52,12 +52,16 @@ To customize the UI texts, languages, or add a YouTube/Vimeo embed to the login 
 
 ## 🛠️ Stack
 
-* **Frontend:** React (Standalone via CDN or compiled via Vite), Tailwind CSS, Lucide Icons.
+* **Frontend:** React, Tailwind CSS, Lucide Icons.
 * **Backend:** Single-file PHP + SQLite3.
 
 ## ❤️ Support the Project
 
-❤️ We decided to share this app for free with everyone in the world because everyone has the right to privacy. Please consider supporting us at any of these wallets:
+❤️ **We decided to share this app for free with everyone in the world because everyone has the right to privacy.**
+
+This app will protect many from persecution and might even **save someone's life!**
+
+Maintaining servers and developing the project requires funding. Please consider supporting the project at any of these wallets:
 
 * **BTC:** `bc1qxdnfjakd89qrz59cr702pt70n0wtapkcrmtnyk`
 * **USDT (TRC-20) / TRX:** `TYqAdNNvvwzNT7LUkGCh8sZLjNQNza3NDd`
@@ -76,9 +80,3 @@ This service is provided "as is". The repository owner, server host, and develop
 **MIT License**
 
 Copyright (c) 2024 SmoldPaper Contributors
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
