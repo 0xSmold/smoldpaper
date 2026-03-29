@@ -6,9 +6,6 @@ import {
   Sun, Moon, ChevronDown, ChevronUp, Wallet
 } from 'lucide-react';
 
-/**
- * Environment detection and API configuration
- */
 const isPreviewEnv = typeof window !== 'undefined' && (
   window.location.protocol === 'blob:' || 
   window.location.protocol === 'data:' || 
@@ -20,7 +17,7 @@ const isPreviewEnv = typeof window !== 'undefined' && (
 const API_URL = 'api.php'; 
 
 // ==========================================
-// LOCALIZATION AND DICTIONARIES
+// ПОЛНЫЕ СЛОВАРИ ДЛЯ ВСЕХ 5 ЯЗЫКОВ
 // ==========================================
 const FALLBACK_DICT: Record<string, any> = {
   ru: {
@@ -46,17 +43,17 @@ const FALLBACK_DICT: Record<string, any> = {
     
     infoAlgTitle: "Как пользоваться?",
     step1Title: "Тайник",
-    infoAlg1: "Договоритесь с собеседником о секретной сид-фразе для доступа к общей комнате в SmoldPaper.",
+    infoAlg1: "Вы договариваетесь с собеседником о секретной сид-фразе (пароле) для входа в Тайник SmoldPaper, где будете всегда расшифровывать сообщения.",
     step2Title: "Условный сигнал",
-    infoAlg2: "Придумайте кодовое слово для обычных чатов. Например: <em>«Если сообщение начинается со слова <strong>Дружище</strong>, значит это ключ»</em>.",
+    infoAlg2: "Также вы договариваетесь, как понять в обычной переписке в любом мессенджере, что в безобидном сообщении скрыт секрет. Например: <em>«Если я начинаю любое сообщение со слова <strong>Дружище</strong>, значит, это сообщение и есть ключ от скрытого секрета»</em>.",
     step3Title: "Передача",
-    infoAlg3: "Общайтесь как обычно. Заметив кодовое слово, просто скопируйте это сообщение в SmoldPaper, чтобы расшифровать тайну.",
+    infoAlg3: "Дальше всё просто! Как обычно общаетесь в любом мессенджере, но если видите сигнальное слово, о котором договорились, сразу копируете это сообщение целиком, чтобы расшифровать его в SmoldPaper.",
     step4Title: "Чтение и пепел",
-    infoAlg4: "Как только вы прочитаете секретное сообщение, оно мгновенно сгорит 🔥",
+    infoAlg4: "Как только вы прочитаете секретное сообщение, оно сразу сгорает 🔥",
     infoAlgOutro: "🕵️‍♂️ <em>Переписывайтесь у всех на виду, не вызывая подозрений. Обменивайтесь секретами в SmoldPaper!</em>",
 
     infoTechTitle: "Как работает шифрование",
-    infoTechText: "Все данные шифруются прямо в вашем браузере по военному стандарту <strong>AES-GCM 256-bit</strong>. Публичная фраза усложняется алгоритмом PBKDF2 (10,000 итераций), превращаясь в сверхнадежный ключ. <br/><br/>Сервер работает по принципу <strong>Zero-Knowledge</strong> (Нулевое разглашение) — он физически не имеет ключей. Даже если сервер будет взломан или изъят, внутри базы данных найдут лишь криптографический шум. Аппаратное удаление выполняется строгой командой <code>DELETE</code> — восстановить текст с диска невозможно.",
+    infoTechText: "Все данные шифруются прямо в вашем браузере по военному стандарту <strong>AES-GCM 256-bit</strong>. Публичная фраза усложняется алгоритмом PBKDF2, превращаясь в сверхнадежный ключ. <br/><br/>Сервер работает по принципу <strong>Zero-Knowledge</strong> (Нулевое разглашение) — он физически не имеет ключей. Даже если сервер будет взломан или изъят, внутри базы данных найдут лишь криптографический шум. Аппаратное удаление выполняется строгой командой <code>DELETE</code> — восстановить текст с диска невозможно.",
     infoRisksTitle: "Векторы атак и риски",
     infoRisksText: "Несмотря на совершенную криптографию, помните о человеческом факторе:<br/>• <strong>Подглядывание (Shoulder Surfing):</strong> Убедитесь, что за вашей спиной нет камер или посторонних глаз.<br/>• <strong>Слабый пароль:</strong> Использование коротких фраз в качестве ключа делает шифр уязвимым. Генерируйте сложные фразы встроенным инструментом (🎲).<br/>• <strong>Социальная инженерия:</strong> Никогда не передавайте расшифрованный текст третьим лицам. Сообщение превращается в пепел, но скриншот экрана остается на вашей совести.",
     infoHardwareDelTitle: "Аппаратное сожжение", infoHardwareDelText: "Как только истекает таймер или исчерпывается лимит прочтений, запись навсегда удаляется. Восстановить её невозможно.",
@@ -104,13 +101,13 @@ const FALLBACK_DICT: Record<string, any> = {
     
     infoAlgTitle: "How to use it?",
     step1Title: "The Stash",
-    infoAlg1: "Agree on a secret seed phrase with your contact to access a shared SmoldPaper room.",
+    infoAlg1: "You agree with your contact on a secret seed phrase (password) to enter a shared SmoldPaper Stash, where you will always decrypt your messages.",
     step2Title: "The Signal",
-    infoAlg2: "Agree on a trigger word for regular chats. Example: <em>«If a message starts with <strong>Buddy</strong>, it's actually a hidden key»</em>.",
+    infoAlg2: "You also agree on a way to recognize when a harmless message in a standard chat contains a hidden secret. For example: <em>«If I start any message with the word <strong>Buddy</strong>, it means this exact message is the key to the secret»</em>.",
     step3Title: "The Drop",
-    infoAlg3: "Chat normally. When you spot the trigger word, copy that entire message into SmoldPaper to unlock the secret.",
+    infoAlg3: "The rest is simple! You chat normally in any messenger, but if you spot the agreed trigger word, you immediately copy that entire message to decrypt the hidden secret in SmoldPaper.",
     step4Title: "Read & Burn",
-    infoAlg4: "The moment you read the secret message, it instantly turns to ash 🔥",
+    infoAlg4: "As soon as you read the secret message, it instantly burns 🔥",
     infoAlgOutro: "🕵️‍♂️ <em>Chat in plain sight without raising suspicion. Exchange secrets in SmoldPaper!</em>",
 
     infoTechTitle: "How Encryption Works",
@@ -161,13 +158,13 @@ const FALLBACK_DICT: Record<string, any> = {
     
     infoAlgTitle: "Wie benutzt man es?",
     step1Title: "Das Versteck",
-    infoAlg1: "Vereinbaren Sie eine geheime Seed-Phrase mit Ihrem Kontakt für den Zugang zum gemeinsamen Raum.",
+    infoAlg1: "Sie vereinbaren mit Ihrem Kontakt eine geheime Seed-Phrase (Passwort) für ein gemeinsames SmoldPaper-Versteck, in dem Sie immer Ihre Nachrichten entschlüsseln.",
     step2Title: "Das Signal",
-    infoAlg2: "Legen Sie ein Signalwort fest. Beispiel: <em>«Beginnt eine Nachricht mit <strong>Kumpel</strong>, ist sie der Schlüssel»</em>.",
+    infoAlg2: "Außerdem vereinbaren Sie, wie Sie in einem normalen Chat erkennen, dass eine harmlose Nachricht ein Geheimnis verbirgt. Zum Beispiel: <em>«Wenn ich eine Nachricht mit dem Wort <strong>Kumpel</strong> beginne, ist genau diese Nachricht der Schlüssel zum Geheimnis»</em>.",
     step3Title: "Die Übergabe",
-    infoAlg3: "Chatten Sie normal. Wenn Sie das Signalwort sehen, kopieren Sie die Nachricht in SmoldPaper, um das Geheimnis zu lüften.",
+    infoAlg3: "Der Rest ist einfach! Sie chatten ganz normal weiter, aber wenn Sie das vereinbarte Signalwort sehen, kopieren Sie sofort die gesamte Nachricht, um das Geheimnis in SmoldPaper zu entschlüsseln.",
     step4Title: "Lesen & Verbrennen",
-    infoAlg4: "Sobald Sie die Nachricht lesen, verbrennt sie sofort 🔥",
+    infoAlg4: "Sobald Sie die geheime Nachricht gelesen haben, verbrennt sie sofort 🔥",
     infoAlgOutro: "🕵️‍♂️ <em>Chatten Sie offen und ohne Verdacht zu erregen. Tauschen Sie Geheimnisse in SmoldPaper aus!</em>",
 
     infoTechTitle: "Wie die Verschlüsselung funktioniert", infoTechText: "Die Daten werden lokal mit AES-GCM 256-bit verschlüsselt. Der Server arbeitet nach dem Zero-Knowledge-Prinzip.",
@@ -217,11 +214,11 @@ const FALLBACK_DICT: Record<string, any> = {
     
     infoAlgTitle: "Comment l'utiliser ?",
     step1Title: "La Cachette",
-    infoAlg1: "Convenez d'une phrase seed secrète avec votre contact pour accéder à une cachette commune.",
+    infoAlg1: "Vous convenez avec votre contact d'une phrase seed (mot de passe) secrète pour accéder à une Cachette SmoldPaper commune, où vous déchiffrerez toujours vos messages.",
     step2Title: "Le Signal",
-    infoAlg2: "Choisissez un mot-clé. Exemple : <em>« Si un message commence par <strong>Pote</strong>, c'est la clé cachée »</em>.",
+    infoAlg2: "Vous convenez également d'un moyen de reconnaître qu'un message anodin dans un chat normal cache un secret. Par exemple : <em>« Si je commence un message par le mot <strong>Pote</strong>, cela signifie que ce message est la clé du secret »</em>.",
     step3Title: "La Transmission",
-    infoAlg3: "Discutez normalement. Si vous voyez le mot-clé, copiez le message dans SmoldPaper pour révéler le secret.",
+    infoAlg3: "La suite est simple ! Vous discutez normalement dans n'importe quelle messagerie, mais si vous voyez le mot déclencheur, vous copiez immédiatement le message entier pour déchiffrer le secret dans SmoldPaper.",
     step4Title: "Lecture et Cendres",
     infoAlg4: "Dès que vous lisez le message secret, il brûle instantanément 🔥",
     infoAlgOutro: "🕵️‍♂️ <em>Discutez à la vue de tous sans éveiller les soupçons. Échangez des secrets dans SmoldPaper !</em>",
@@ -273,11 +270,11 @@ const FALLBACK_DICT: Record<string, any> = {
     
     infoAlgTitle: "¿Cómo se usa?",
     step1Title: "El Escondite",
-    infoAlg1: "Acuerda una frase semilla secreta con tu contacto para acceder a un escondite común.",
+    infoAlg1: "Acuerdas con tu contacto una frase semilla (contraseña) secreta para entrar a un Escondite común de SmoldPaper, donde siempre descifrarán los mensajes.",
     step2Title: "La Señal",
-    infoAlg2: "Elige una palabra clave. Ejemplo: <em>«Si un mensaje empieza por <strong>Amigo</strong>, es la llave oculta»</em>.",
+    infoAlg2: "También acuerdan cómo darse cuenta en un chat normal de que un mensaje inofensivo oculta un secreto. Por ejemplo: <em>«Si empiezo cualquier mensaje con la palabra <strong>Amigo</strong>, significa que ese mensaje es la llave del secreto oculto»</em>.",
     step3Title: "La Transmisión",
-    infoAlg3: "Chatea normalmente. Cuando veas la palabra clave, copia el mensaje en SmoldPaper para revelar el secreto.",
+    infoAlg3: "¡El resto es simple! Chatean normalmente en cualquier mensajería, pero si ven la palabra clave acordada, copian ese mensaje entero de inmediato para descifrar el secreto en SmoldPaper.",
     step4Title: "Leer y Quemar",
     infoAlg4: "En cuanto leas el mensaje secreto, se quemará al instante 🔥",
     infoAlgOutro: "🕵️‍♂️ <em>Chatea a la vista de todos sin levantar sospechas. ¡Intercambien secretos en SmoldPaper!</em>",
@@ -312,7 +309,10 @@ const FALLBACK_DICT: Record<string, any> = {
 
 const DICT: any = typeof window !== 'undefined' && (window as any).SMOLDPAPER_DICT ? (window as any).SMOLDPAPER_DICT : FALLBACK_DICT;
 
-const defaultFooter = `End-to-End Encrypted. We don't store keys, read messages, and we delete them permanently.
+// ==========================================
+// КРАСИВЫЙ ФУТЕР
+// ==========================================
+const DEFAULT_BEAUTIFUL_FOOTER = `End-to-End Encrypted. We don't store keys, read messages, and we delete them permanently.
 <div style="margin-top: 12px; display: flex; justify-content: center;">
   <a href="https://github.com/0xSmold/smoldpaper" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; background: rgba(150, 150, 150, 0.1); border-radius: 10px; text-decoration: none; color: inherit; font-weight: bold; font-size: 13px; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">
     <svg height="18" viewBox="0 0 16 16" width="18" style="fill: currentColor;">
@@ -323,12 +323,12 @@ const defaultFooter = `End-to-End Encrypted. We don't store keys, read messages,
 </div>`;
 
 // ==========================================
-// SANDBOX EMULATION BLOCK (FOR PREVIEW)
+// БЛОК ЭМУЛЯЦИИ ДЛЯ ПЕСОЧНИЦЫ
 // ==========================================
 let mockDB: any = { 
   messages: [], 
   settings: { 
-    footer_html: defaultFooter, 
+    footer_html: DEFAULT_BEAUTIFUL_FOOTER, 
     custom_dict_ru: '{}', custom_dict_en: '{}', custom_dict_de: '{}', custom_dict_fr: '{}', custom_dict_es: '{}', 
     admin_password: 'admin123' 
   } 
@@ -385,11 +385,7 @@ const apiCall = async (payload: any) => {
   }
 
   try {
-    const res = await fetch(API_URL, { 
-      method: 'POST', 
-      headers: { 'Content-Type': 'application/json' }, 
-      body: JSON.stringify(payload) 
-    });
+    const res = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
     if (!res.ok) throw new Error('Network error');
     return await res.json();
   } catch (e: any) { 
@@ -399,7 +395,7 @@ const apiCall = async (payload: any) => {
 };
 
 // ==========================================
-// CRYPTOGRAPHIC CORE (Web Crypto API)
+// КРИПТОГРАФИЧЕСКОЕ ЯДРО
 // ==========================================
 const checkCryptoAPI = () => {
     return !!(window.crypto && window.crypto.subtle);
@@ -443,7 +439,7 @@ const hashString = async (str: string) => {
 };
 
 // ==========================================
-// AUDIO MODULE
+// МОДУЛЬ ЗВУКОВ
 // ==========================================
 const playTone = (type: string) => {
   try {
@@ -468,7 +464,7 @@ const playTone = (type: string) => {
 };
 
 // ==========================================
-// SUPPORT AND VIRALITY COMPONENT
+// КОМПОНЕНТ ВИРУСНОСТИ И ДОНАТОВ
 // ==========================================
 function SupportBlock({ t, themeClasses, showToast }: any) {
   const [copiedShare, setCopiedShare] = useState(false);
@@ -495,7 +491,7 @@ function SupportBlock({ t, themeClasses, showToast }: any) {
         showToast(t('copied'), 'success');
       }
     } catch(e: any) {
-      showToast("Copy error (try selecting text manually)", 'error');
+      showToast("Ошибка копирования (попробуйте выделить текст вручную)", 'error');
     } 
     document.body.removeChild(ta);
   };
@@ -530,7 +526,7 @@ function SupportBlock({ t, themeClasses, showToast }: any) {
                   <span className={`font-bold text-[11px] sm:text-xs w-36 shrink-0 ${themeClasses.accentText}`}>{w.name}</span>
                   <span className="font-mono text-xs sm:text-sm truncate opacity-70 cursor-text select-all">{w.address}</span>
                 </div>
-                <button onClick={() => copyToClipboard(w.address)} className={`p-2 shrink-0 rounded-lg transition-colors ${themeClasses.hoverBtn} ${themeClasses.accentText}`} title="Copy">
+                <button onClick={() => copyToClipboard(w.address)} className={`p-2 shrink-0 rounded-lg transition-colors ${themeClasses.hoverBtn} ${themeClasses.accentText}`} title="Копировать">
                   <Copy size={16} />
                 </button>
               </div>
@@ -552,7 +548,7 @@ function SupportBlock({ t, themeClasses, showToast }: any) {
 }
 
 // ==========================================
-// INFOGRAPHIC COMPONENT
+// КОМПОНЕНТ ИНФОГРАФИКИ "КАК РАБОТАЕТ"
 // ==========================================
 function HowItWorksInfographic({ t }: any) {
   const steps = [
@@ -581,7 +577,7 @@ function HowItWorksInfographic({ t }: any) {
 }
 
 // ==========================================
-// MAIN APP COMPONENT (Router)
+// ГЛАВНОЕ ПРИЛОЖЕНИЕ (Маршрутизатор)
 // ==========================================
 export default function App() {
   const [view, setView] = useState('login'); 
@@ -594,16 +590,15 @@ export default function App() {
     return false;
   });
   
-  // TOAST NOTIFICATIONS
   const [toast, setToast] = useState<any>(null);
   const showToast = (message: string, type: string = 'success') => {
     setToast({ message, type });
     setTimeout(() => setToast(null), 3000);
   };
 
-  const [isLoginInfoOpen, setIsLoginInfoOpen] = useState(true); 
+  const [isLoginInfoOpen, setIsLoginInfoOpen] = useState(true);
   const [serverDict, setServerDict] = useState<any>({ ru: {}, en: {}, de: {}, fr: {}, es: {} });
-  const [footerHtml, setFooterHtml] = useState(defaultFooter);
+  const [footerHtml, setFooterHtml] = useState(DEFAULT_BEAUTIFUL_FOOTER);
 
   const [roomSeed, setRoomSeed] = useState('');
   const [roomHash, setRoomHash] = useState('');
@@ -645,7 +640,7 @@ export default function App() {
       
       if (code) {
         if (code.trim().length < 8) {
-          showToast(t('errSeedShort') || "Seed phrase must be at least 8 characters.", 'error');
+          showToast(t('errSeedShort') || "Сид-фраза должна содержать не менее 8 символов.", 'error');
           window.history.replaceState({}, document.title, window.location.pathname);
           return;
         }
@@ -667,7 +662,7 @@ export default function App() {
       }
     };
     initUrlLogin();
-  }, [lang]); 
+  }, [lang]);
 
   useEffect(() => {
     const initSettings = async () => {
@@ -766,7 +761,7 @@ export default function App() {
   };
 
   // ==========================================
-  // GLOBAL STYLE CLASSES (Moleskine / Paper Style)
+  // ГЛОБАЛЬНЫЕ КЛАССЫ СТИЛЕЙ
   // ==========================================
   const themeClasses = {
     bgApp: 'bg-[#E5E7EB] dark:bg-[#0F0E0D] text-[#2c241b] dark:text-[#D6C8B3]',
@@ -842,7 +837,6 @@ export default function App() {
         {view === 'login' && (
           <div className="flex flex-col items-center justify-center w-full max-w-5xl animate-in fade-in zoom-in-95 my-4 sm:my-8 gap-8 sm:gap-12">
             
-            {/* COLLAPSIBLE INSTRUCTION BLOCK */}
             <div className="w-full flex flex-col items-center">
               <div 
                 className={`text-center mb-4 sm:mb-6 cursor-pointer select-none group flex flex-col items-center`}
@@ -906,7 +900,6 @@ export default function App() {
                       </button>
                     </div>
                   </div>
-                  {/* ИНДИКАТОР ЗАГРУЗКИ ПРИ ВХОДЕ */}
                   <button type="submit" disabled={isEntering} className={`w-full font-bold py-4 rounded-xl transition-all active:scale-95 flex items-center justify-center disabled:opacity-50 ${themeClasses.btnPrimary}`}>
                     {isEntering ? <div className="w-6 h-6 border-2 border-[#EBE1D1]/30 border-t-[#EBE1D1] rounded-full animate-spin"></div> : <><Unlock size={20} className="mr-2"/> {t('btnEnter')}</>}
                   </button>
@@ -941,7 +934,7 @@ export default function App() {
 }
 
 // ==========================================
-// ADMIN PANEL (SETTINGS AND TEXTS)
+// ПАНЕЛЬ УПРАВЛЕНИЯ (АДМИНКА)
 // ==========================================
 function AdminScreen({ adminPass, serverDict, setServerDict, footerHtml, setFooterHtml, themeClasses, t, showToast }: any) {
   const [activeTab, setActiveTab] = useState('texts');
@@ -970,18 +963,16 @@ function AdminScreen({ adminPass, serverDict, setServerDict, footerHtml, setFoot
   };
 
   const handleSavePass = async () => {
-    const trimmedPass = newPass.trim();
-    if (trimmedPass.length < 6) return showToast("Password must be at least 6 characters", 'error');
+    if (newPass.length < 6) return showToast("Пароль минимум 6 символов", 'error');
     setSaveStatus('saving');
-    const res: any = await apiCall({ action: 'save_settings', key: 'admin_password', value: trimmedPass, admin_password: adminPass });
+    const res: any = await apiCall({ action: 'save_settings', key: 'admin_password', value: newPass, admin_password: adminPass });
     if (res.success) { 
       setSaveStatus('saved'); 
       setNewPass(''); 
-      showToast("Password updated! Please re-login.", 'success'); 
+      showToast("Пароль изменен! Войдите заново.", 'success'); 
       setTimeout(() => window.location.reload(), 1500); 
     } else { 
       setSaveStatus('error'); 
-      showToast("Server error during password update", 'error');
     }
   };
 
@@ -992,15 +983,16 @@ function AdminScreen({ adminPass, serverDict, setServerDict, footerHtml, setFoot
           <Shield 
             className={`mr-2 cursor-pointer transition-transform active:scale-75 ${themeClasses.accentText}`} 
             onClick={() => setSecretClicks(c => c + 1)}
+            {...({ title: "Панель защищена" } as any)}
           /> 
-          Admin Panel
+          Панель Администратора
         </h2>
       </div>
 
       <div className={`flex gap-2 mb-6 p-1 rounded-xl overflow-x-auto mx-2 ${themeClasses.bgCard} shadow-sm dark:shadow-none`}>
-        <button onClick={() => setActiveTab('texts')} className={`flex-1 min-w-[100px] py-2 px-4 rounded-lg font-bold text-sm transition-all outline-none focus-visible:ring-2 focus-visible:ring-red-500/50 ${activeTab === 'texts' ? themeClasses.btnPrimary : themeClasses.hoverBtn}`}>Texts</button>
-        <button onClick={() => setActiveTab('footer')} className={`flex-1 min-w-[100px] py-2 px-4 rounded-lg font-bold text-sm transition-all outline-none focus-visible:ring-2 focus-visible:ring-red-500/50 ${activeTab === 'footer' ? themeClasses.btnPrimary : themeClasses.hoverBtn}`}>Footer HTML</button>
-        <button onClick={() => setActiveTab('settings')} className={`flex-1 min-w-[100px] py-2 px-4 rounded-lg font-bold text-sm transition-all outline-none focus-visible:ring-2 focus-visible:ring-red-500/50 ${activeTab === 'settings' ? themeClasses.btnPrimary : themeClasses.hoverBtn}`}>Settings</button>
+        <button onClick={() => setActiveTab('texts')} className={`flex-1 min-w-[100px] py-2 px-4 rounded-lg font-bold text-sm transition-all outline-none focus-visible:ring-2 focus-visible:ring-red-500/50 ${activeTab === 'texts' ? themeClasses.btnPrimary : themeClasses.hoverBtn}`}>Тексты</button>
+        <button onClick={() => setActiveTab('footer')} className={`flex-1 min-w-[100px] py-2 px-4 rounded-lg font-bold text-sm transition-all outline-none focus-visible:ring-2 focus-visible:ring-red-500/50 ${activeTab === 'footer' ? themeClasses.btnPrimary : themeClasses.hoverBtn}`}>Подвал (Футер)</button>
+        <button onClick={() => setActiveTab('settings')} className={`flex-1 min-w-[100px] py-2 px-4 rounded-lg font-bold text-sm transition-all outline-none focus-visible:ring-2 focus-visible:ring-red-500/50 ${activeTab === 'settings' ? themeClasses.btnPrimary : themeClasses.hoverBtn}`}>Настройки</button>
       </div>
 
       <div className={`p-4 sm:p-6 rounded-2xl border ${themeClasses.bgCard}`}>
@@ -1008,21 +1000,21 @@ function AdminScreen({ adminPass, serverDict, setServerDict, footerHtml, setFoot
           <div className="space-y-6">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div>
-                <p className={`text-sm mb-2 ${themeClasses.textMuted}`}>Language for editing. Leave blank for fallback.</p>
+                <p className={`text-sm mb-2 ${themeClasses.textMuted}`}>Язык для редактирования. Оставьте поле пустым для базового текста.</p>
                 <div className={`flex gap-1 p-1 rounded-lg inline-flex border bg-[#F3EBE0] dark:bg-[#0F0E0D] border-[#EAE0D0] dark:border-[#3E3832]`}>
                   {['ru', 'en', 'de', 'fr', 'es'].map(l => (
                     <button key={l} onClick={() => setEditLang(l)} className={`px-4 py-1.5 rounded-md text-xs font-bold uppercase transition-all outline-none focus-visible:ring-2 focus-visible:ring-red-500/50 ${editLang === l ? themeClasses.btnPrimary : themeClasses.hoverBtn}`}>{l}</button>
                   ))}
                 </div>
               </div>
-              <button onClick={handleSaveTexts} disabled={saveStatus === 'saving'} className={`px-6 py-2.5 rounded-xl font-bold text-sm flex items-center transition-all outline-none focus-visible:ring-2 focus-visible:ring-red-500/50 ${saveStatus === 'saved' ? 'bg-emerald-600 text-white dark:bg-emerald-700' : themeClasses.btnPrimary}`}><Save size={16} className="mr-2"/> {saveStatus === 'saving' ? 'Saving...' : saveStatus === 'saved' ? 'Saved!' : 'Save Texts'}</button>
+              <button onClick={handleSaveTexts} disabled={saveStatus === 'saving'} className={`px-6 py-2.5 rounded-xl font-bold text-sm flex items-center transition-all outline-none focus-visible:ring-2 focus-visible:ring-red-500/50 ${saveStatus === 'saved' ? 'bg-emerald-600 text-white dark:bg-emerald-700' : themeClasses.btnPrimary}`}><Save size={16} className="mr-2"/> {saveStatus === 'saving' ? 'Сохранение...' : saveStatus === 'saved' ? 'Сохранено!' : 'Сохранить тексты'}</button>
             </div>
             <div className="grid grid-cols-1 gap-4 max-h-[60vh] overflow-y-auto pr-2">
               {Object.keys(FALLBACK_DICT[editLang] || FALLBACK_DICT.en)
                 .filter(key => key !== 'donateMessage' || secretClicks >= 5)
                 .map(key => (
                 <div key={key} className={`p-4 rounded-xl border bg-[#F3EBE0] dark:bg-[#110F0E] border-[#EAE0D0] dark:border-[#3E3832]`}>
-                  <label className={`block text-xs font-mono mb-2 ${themeClasses.accentText}`}>{key}</label>
+                  <label className={`block text-xs font-mono mb-2 ${themeClasses.accentText}`}>{key === 'loginEmbedHtml' ? 'Код видеоплеера (YouTube/Vimeo Iframe)' : key}</label>
                   <textarea 
                     value={localDict[editLang]?.[key] !== undefined ? localDict[editLang][key] : (FALLBACK_DICT[editLang]?.[key] || '')} 
                     onChange={e => setLocalDict((prev: any) => ({...prev, [editLang]: {...(prev[editLang]||{}), [key]: e.target.value}}))} 
@@ -1036,18 +1028,18 @@ function AdminScreen({ adminPass, serverDict, setServerDict, footerHtml, setFoot
 
         {activeTab === 'footer' && (
           <div className="space-y-4">
-            <p className={`text-sm ${themeClasses.textMuted}`}>Text at the bottom of the page. Supports HTML.</p>
+            <p className={`text-sm ${themeClasses.textMuted}`}>Текст в самом низу приложения. Поддерживает HTML теги.</p>
             <textarea value={localFooter} onChange={e => setLocalFooter(e.target.value)} className={`w-full h-32 p-4 rounded-xl border text-sm resize-y ${themeClasses.inputBg}`} />
-            <button onClick={handleSaveFooter} disabled={saveStatus === 'saving'} className={`px-6 py-2.5 rounded-xl font-bold text-sm flex items-center transition-all outline-none focus-visible:ring-2 focus-visible:ring-red-500/50 ${saveStatus === 'saved' ? 'bg-emerald-600 text-white dark:bg-emerald-700' : themeClasses.btnPrimary}`}><Save size={16} className="mr-2"/> Save Footer</button>
+            <button onClick={handleSaveFooter} disabled={saveStatus === 'saving'} className={`px-6 py-2.5 rounded-xl font-bold text-sm flex items-center transition-all outline-none focus-visible:ring-2 focus-visible:ring-red-500/50 ${saveStatus === 'saved' ? 'bg-emerald-600 text-white dark:bg-emerald-700' : themeClasses.btnPrimary}`}><Save size={16} className="mr-2"/> Сохранить футер</button>
           </div>
         )}
 
         {activeTab === 'settings' && (
           <div className="space-y-4">
-            <p className={`text-sm ${themeClasses.textMuted}`}>Change Admin Panel password.</p>
-            <input type="text" value={newPass} onChange={e => setNewPass(e.target.value)} placeholder="New Password" className={`w-full max-w-sm px-4 py-3 rounded-xl border font-medium ${themeClasses.inputBg}`} />
+            <p className={`text-sm ${themeClasses.textMuted}`}>Смена пароля для входа в эту панель администратора.</p>
+            <input type="text" value={newPass} onChange={e => setNewPass(e.target.value)} placeholder="Новый пароль" className={`w-full max-w-sm px-4 py-3 rounded-xl border font-medium ${themeClasses.inputBg}`} />
             <br/>
-            <button onClick={handleSavePass} disabled={saveStatus === 'saving'} className={`px-6 py-2.5 rounded-xl font-bold text-sm flex items-center transition-all outline-none focus-visible:ring-2 focus-visible:ring-red-500/50 ${saveStatus === 'saved' ? 'bg-emerald-600 text-white dark:bg-emerald-700' : themeClasses.btnPrimary}`}><Save size={16} className="mr-2"/> Save Password</button>
+            <button onClick={handleSavePass} disabled={saveStatus === 'saving'} className={`px-6 py-2.5 rounded-xl font-bold text-sm flex items-center transition-all outline-none focus-visible:ring-2 focus-visible:ring-red-500/50 ${saveStatus === 'saved' ? 'bg-emerald-600 text-white dark:bg-emerald-700' : themeClasses.btnPrimary}`}><Save size={16} className="mr-2"/> Сохранить пароль</button>
           </div>
         )}
       </div>
@@ -1056,7 +1048,7 @@ function AdminScreen({ adminPass, serverDict, setServerDict, footerHtml, setFoot
 }
 
 // ==========================================
-// STASH ROOM COMPONENT
+// КОМПОНЕНТ ТАЙНИКА И ПЕРЕПИСКИ
 // ==========================================
 function RoomScreen({ roomHash, roomSeed, settings, updateSetting, themeClasses, soundType, t, showToast }: any) {
   const [messages, setMessages] = useState<any[]>([]);
@@ -1096,7 +1088,6 @@ function RoomScreen({ roomHash, roomSeed, settings, updateSetting, themeClasses,
     const fetchLoop = async () => {
       if (!isMounted) return;
       await fetchMessages();
-      // Опрашиваем сервер раз в 10 секунд для снижения нагрузки на хостинг
       if (isMounted) timerId = setTimeout(fetchLoop, 10000); 
     };
 
@@ -1152,7 +1143,7 @@ function RoomScreen({ roomHash, roomSeed, settings, updateSetting, themeClasses,
   const attemptDecrypt = async (e: any) => {
     e.preventDefault();
     if (!readPubPhrase) return;
-    setIsDecrypting(true); setDecryptError('');
+    setIsDecrypting(true); setDecryptError(''); 
 
     try {
       const resPayload: any = await apiCall({ action: 'get_payload', id: readingMsg.id, room_hash: roomHash });
@@ -1175,7 +1166,7 @@ function RoomScreen({ roomHash, roomSeed, settings, updateSetting, themeClasses,
         }
       }
     } catch (err: any) { setDecryptError(t('errNetwork')); }
-    setIsDecrypting(false);
+    setIsDecrypting(false); 
   };
 
   const copyToClipboard = (text: string) => {
@@ -1184,7 +1175,7 @@ function RoomScreen({ roomHash, roomSeed, settings, updateSetting, themeClasses,
       document.execCommand('copy'); 
       showToast(t('copied'), 'success');
     } catch(e: any) {
-      showToast("Copy error (try manually)", 'error');
+      showToast("Ошибка копирования (попробуйте выделить текст вручную)", 'error');
     } 
     document.body.removeChild(ta);
   };
@@ -1200,7 +1191,7 @@ function RoomScreen({ roomHash, roomSeed, settings, updateSetting, themeClasses,
   return (
     <div className="w-full max-w-5xl flex flex-col gap-4 sm:gap-6 my-2 sm:my-4 px-2 sm:px-0">
       
-      {/* INVITE AND INFO BAR */}
+      {/* ПРИГЛАШЕНИЕ И ИНСТРУКЦИЯ */}
       <div className={`p-4 sm:p-6 rounded-2xl border flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4 ${themeClasses.bgCard}`}>
          <button onClick={handleShareRoomInvite} className={`w-full sm:w-auto px-6 py-3.5 sm:py-3 rounded-xl font-bold flex items-center justify-start sm:justify-center transition-all active:scale-95 ${themeClasses.hoverBtn}`}>
            {copiedInvite ? <Check size={20} className="mr-3 sm:mr-2 text-emerald-500"/> : <UserPlus size={20} className={`mr-3 sm:mr-2 ${themeClasses.accentText}`}/>}
@@ -1220,7 +1211,7 @@ function RoomScreen({ roomHash, roomSeed, settings, updateSetting, themeClasses,
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 items-start">
-        {/* COMPOSE SECTION */}
+        {/* ОТПРАВКА */}
         <div className={`rounded-2xl border overflow-hidden ${themeClasses.bgCard}`}>
           <div 
             className={`p-4 sm:p-6 sm:pb-4 flex justify-between items-center cursor-pointer select-none transition-colors hover:bg-[#EAE0D0]/50 dark:hover:bg-white/5 border-b border-transparent dark:border-[#3E3832]`}
@@ -1292,7 +1283,7 @@ function RoomScreen({ roomHash, roomSeed, settings, updateSetting, themeClasses,
           )}
         </div>
 
-        {/* LIST AND READ SECTION */}
+        {/* СПИСОК / ЧТЕНИЕ */}
         <div className={`flex flex-col min-h-[450px] sm:min-h-[600px] h-full rounded-2xl border overflow-hidden relative ${themeClasses.bgCard}`}>
           
           {readingMsg ? (
@@ -1302,7 +1293,7 @@ function RoomScreen({ roomHash, roomSeed, settings, updateSetting, themeClasses,
                    &larr; {t('btnBack')}
                  </button>
                  <span className="font-mono text-xs opacity-50 hidden sm:block">ID: {readingMsg.id.substring(0,8)}</span>
-                 <button onClick={() => setReadingMsg(null)} className={`p-1.5 rounded-lg transition-colors ${themeClasses.hoverBtn}`} title="Close">
+                 <button onClick={() => setReadingMsg(null)} className={`p-1.5 rounded-lg transition-colors ${themeClasses.hoverBtn}`} title="Закрыть окно">
                    <X size={20} />
                  </button>
               </div>
@@ -1325,7 +1316,7 @@ function RoomScreen({ roomHash, roomSeed, settings, updateSetting, themeClasses,
                   <div className="animate-in fade-in">
                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
                        <span className="inline-flex items-center px-3 py-1.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-bold uppercase self-start"><Unlock size={14} className="mr-1.5"/> {t('decryptedLocal')}</span>
-                       <button onClick={() => { copyToClipboard(decryptedText); }} className={`p-2 rounded-lg flex items-center justify-center gap-2 font-bold text-sm ${themeClasses.hoverBtn} ${themeClasses.accentText}`}><Copy size={18}/> Copy</button>
+                       <button onClick={() => { copyToClipboard(decryptedText); }} className={`p-2 rounded-lg flex items-center justify-center gap-2 font-bold text-sm ${themeClasses.hoverBtn} ${themeClasses.accentText}`}><Copy size={18}/> Копировать</button>
                      </div>
                      <div className={`p-4 rounded-xl border whitespace-pre-wrap break-words text-sm sm:text-base leading-relaxed bg-[#F3EBE0] dark:bg-[#110F0E] border-[#EAE0D0] dark:border-[#3E3832] text-[#2c241b] dark:text-[#EBE1D1]`}>
                        {decryptedText}
@@ -1469,7 +1460,7 @@ function InfoScreen({ onBack, themeClasses, t }: any) {
           </div>
 
           <p className="text-xs opacity-50 mt-8 pt-6 border-t border-inherit text-center">
-             {t('infoFooter') || 'No IP addresses, logs or cookies are collected.'}
+             {t('infoFooter') || 'Никакие IP-адреса, логи и куки-файлы не собираются.'}
           </p>
         </div>
       </div>
