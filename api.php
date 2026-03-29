@@ -64,8 +64,6 @@ try {
     // ==========================================
     // ЗАЩИТА И СКОРОСТЬ МАРШРУТИЗАЦИИ
     // ==========================================
-    // Создание защитного файла .htaccess с переадресацией на index.html
-    // Выполняется ВСЕГДА, если файла нет (даже если база уже создана)
     $htaccess = __DIR__ . '/.htaccess';
     if (!file_exists($htaccess)) {
         $htaccessContent = "DirectoryIndex index.html\n<FilesMatch \"\\.(sqlite|sqlite3|db|wal|shm)$\">\nOrder allow,deny\nDeny from all\n</FilesMatch>";
@@ -75,18 +73,12 @@ try {
     // ==========================================
     // СОЗДАНИЕ ИНДЕКСОВ ДЛЯ ВЫСОКИХ НАГРУЗОК
     // ==========================================
-    // Даже если база уже существует, этот код создаст "оглавление" для быстрого поиска
     $db->exec("CREATE INDEX IF NOT EXISTS idx_room_hash ON messages(room_hash);");
     $db->exec("CREATE INDEX IF NOT EXISTS idx_expires_at ON messages(expires_at);");
 
 
     $input = json_decode(file_get_contents('php://input'), true);
     $action = $input['action'] ?? '';
-
-    // ОПТИМИЗАЦИЯ: Очистка старых сообщений (Garbage Collector) с шансом 10%
-    if (rand(1, 10) === 1) {
-        $db->exec("DELETE FROM messages WHERE expires_at < DATETIME('now')");
-    }
 
     switch ($action) {
         case 'get_settings':
@@ -96,6 +88,7 @@ try {
             break;
 
         case 'admin_login':
+            // ВХОД ТЕПЕРЬ 100% READ-ONLY (Только чтение). Никаких зависаний на 5 секунд!
             $pass = $input['password'] ?? '';
             $stmt = $db->prepare("SELECT value FROM settings WHERE key = 'admin_password'");
             $stmt->execute();
@@ -108,7 +101,6 @@ try {
             $key = $input['key'] ?? '';
             $value = $input['value'] ?? '';
 
-            // Security check
             $stmt = $db->prepare("SELECT value FROM settings WHERE key = 'admin_password'");
             $stmt->execute();
             if ($adminPass !== $stmt->fetchColumn()) {
@@ -116,21 +108,28 @@ try {
                 break;
             }
 
-            // Execute update
             $stmt = $db->prepare("INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)");
             $stmt->execute([$key, $value]);
             echo json_encode(['success' => true]);
             break;
 
         case 'get_messages':
+            // ЧТЕНИЕ СПИСКА ТЕПЕРЬ 100% READ-ONLY
             $roomHash = $input['room_hash'] ?? '';
-            // Фильтруем сгоревшие сообщения "на лету" при чтении
             $stmt = $db->prepare("SELECT id, public_label, created_at, expires_at, max_reads, current_reads, failed_attempts FROM messages WHERE room_hash = ? AND expires_at >= DATETIME('now') ORDER BY created_at DESC");
             $stmt->execute([$roomHash]);
             echo json_encode(['success' => true, 'messages' => $stmt->fetchAll(PDO::FETCH_ASSOC)]);
             break;
 
         case 'post_message':
+            // =================================================================
+            // МУСОРЩИК ПЕРЕНЕСЕН СЮДА!
+            // База чистится (с шансом 10%) только в момент создания нового сообщения.
+            // =================================================================
+            if (rand(1, 10) === 1) {
+                $db->exec("DELETE FROM messages WHERE expires_at < DATETIME('now')");
+            }
+
             $id = bin2hex(random_bytes(8));
             $roomHash = $input['room_hash'] ?? '';
             $payload = $input['payload'] ?? '';
@@ -146,7 +145,6 @@ try {
         case 'get_payload':
             $id = $input['id'] ?? '';
             $roomHash = $input['room_hash'] ?? '';
-            // Блокируем чтение уже сгоревших
             $stmt = $db->prepare("SELECT payload FROM messages WHERE id = ? AND room_hash = ? AND expires_at >= DATETIME('now')");
             $stmt->execute([$id, $roomHash]);
             $payload = $stmt->fetchColumn();
@@ -156,7 +154,6 @@ try {
         case 'mark_read':
             $id = $input['id'] ?? '';
             $db->prepare("UPDATE messages SET current_reads = current_reads + 1 WHERE id = ?")->execute([$id]);
-            // Auto-burn if limit reached
             $stmt = $db->prepare("SELECT 1 FROM messages WHERE id = ? AND current_reads >= max_reads");
             $stmt->execute([$id]);
             if ($stmt->fetch()) {
