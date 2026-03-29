@@ -1,36 +1,74 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SmoldPaper – Zero-Knowledge Box</title>
     
-    <!-- Скрипт темы: предотвращает вспышки белого/черного фона при загрузке -->
+    <!-- 1. Мгновенная проверка темы ДО отрисовки страницы (предотвращает вспышки света) -->
     <script>
       try {
         var savedTheme = localStorage.getItem('smoldpaper_theme');
         var isDark = savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches);
-        if (isDark) {
-          document.documentElement.classList.add('dark');
-        } else {
-          document.documentElement.classList.remove('dark');
-        }
+        if (isDark) document.documentElement.classList.add('dark');
       } catch (e) {}
     </script>
-
-    <!-- Подключаем Tailwind -->
-    <script type="text/javascript" src="https://cdn.tailwindcss.com"></script>
-    <script type="text/javascript">
-      tailwind.config = { 
+    
+    <!-- 2. Подключаем Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
         darkMode: 'class'
       };
     </script>
+
+    <!-- 3. Жестко задаем фоны нашей НОВОЙ палитры (защита от глюков) -->
+    <style>
+      /* Темная тема */
+      html.dark body { background-color: #0F0E0D !important; color: #D6C8B3 !important; }
+      
+      /* Светлая тема */
+      html:not(.dark) body { background-color: #E5E7EB !important; color: #2c241b !important; }
+      
+      body { margin: 0; font-family: sans-serif; }
+      
+      /* =========================================================================
+         ПРИНУДИТЕЛЬНАЯ ЗАЩИТА СТИЛЕЙ С НОВЫМИ HEX-ЦВЕТАМИ
+         ========================================================================= */
+      
+      /* Тёмная тема: Фоны карточек и полей */
+      html.dark .bg-\[\#1A1816\] { background-color: #1A1816 !important; }
+      html.dark .bg-\[\#110F0E\] { background-color: #110F0E !important; }
+      html.dark .bg-\[\#2B2622\] { background-color: #2B2622 !important; }
+      
+      /* Тёмная тема: Рамки */
+      html.dark .border-\[\#3E3832\] { border-color: #3E3832 !important; }
+
+      /* Светлая тема: Фоны карточек и полей */
+      html:not(.dark) .bg-\[\#FDF8EC\] { background-color: #FDF8EC !important; }
+      html:not(.dark) .bg-\[\#F3EBE0\] { background-color: #F3EBE0 !important; }
+      html:not(.dark) .bg-\[\#EAE0D0\] { background-color: #EAE0D0 !important; }
+      
+      /* Светлая тема: Рамки */
+      html:not(.dark) .border-\[\#EAE0D0\] { border-color: #EAE0D0 !important; }
+
+      /* Анимация плавного появления интерфейса */
+      #root { opacity: 0; transition: opacity 0.4s ease-out; }
+      .tw-ready #root { opacity: 1; }
+    </style>
+
+    <!-- 4. Проявляем интерфейс, когда всё загрузилось -->
+    <script>
+      window.addEventListener('load', function() {
+         requestAnimationFrame(function() {
+             document.body.classList.add('tw-ready');
+         });
+      });
+    </script>
   </head>
-  <body class="bg-[#E5E7EB] dark:bg-[#0F0E0D] transition-colors duration-300">
+  <body>
     <div id="root"></div>
-    
-    <!-- ВАЖНО: Правильная точка входа для Vite / StackBlitz -->
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
