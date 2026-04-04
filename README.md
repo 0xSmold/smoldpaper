@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🔥 SmoldPaper v3.3
+# 🔥 SmoldPaper v3.3.0
 
 ### *Privacy is a Right.*
 
