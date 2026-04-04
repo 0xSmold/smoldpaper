@@ -1,8 +1,10 @@
-🔥 SmoldPaper: Zero-Knowledge Secure Drop Box & Stealth Chat
+🔥 SmoldPaper
+
+Open-Source Zero-Knowledge Secure Drop Box & Stealth Chat.
 
 In an era where every written word settles forever on corporate servers, we brought back the magic of secret letters that burn after reading.
 
-SmoldPaper is an open-source, client-side encrypted secure drop box and stealth chat. It allows two parties to exchange highly sensitive information across compromised or monitored channels without leaving a single trace on the server.
+SmoldPaper v3.2 is an open-source, client-side encrypted secure drop box and stealth chat. It allows two parties to exchange highly sensitive information across compromised or monitored channels without leaving a single trace on the server.
 
 🚀 The 3-File Revolution
 
