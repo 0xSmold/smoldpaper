@@ -67,8 +67,9 @@ function init_db(): PDO {
 }
 
 function maybe_cleanup(PDO $db): void {
-    // Очистка запускается только в 5% случаев запросов (спасает дешевые хостинги)
-    if (rand(1, 100) > 5) return;
+    $lock = __DIR__ . '/data/.cleanup_lock';
+    if (file_exists($lock) && (time() - filemtime($lock)) < 60) return;
+    @touch($lock);
     
     $now = time();
     $db->exec("DELETE FROM entries WHERE type='chat' AND ($now - updated_at) > " . CHAT_IDLE_TTL);
@@ -81,7 +82,7 @@ function create_note(PDO $db): void {
     $in = get_input(); need($in, ['content']);
     
     if (strlen($in['content']) > MAX_PAYLOAD_SIZE) {
-        json_out(413, ['error' => 'Payload too large (Max 100k chars)']);
+        json_out(413, ['error' => 'Payload too large (Max 250KB)']);
     }
 
     $id = bin2hex(random_bytes(16)); $now = time();
@@ -132,7 +133,7 @@ function send_message(PDO $db): void {
     $in = get_input(); need($in, ['room_id','content','sender']);
     
     if (strlen($in['content']) > MAX_PAYLOAD_SIZE) {
-        json_out(413, ['error' => 'Payload too large (Max 100k chars)']);
+        json_out(413, ['error' => 'Payload too large (Max 250KB)']);
     }
 
     $now = time();
