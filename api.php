@@ -117,16 +117,24 @@ function check_room(PDO $db): void {
 function create_room(PDO $db): void {
     $in = get_input(); need($in, ['hash_id']);
     $h = $in['hash_id']; $now = time();
-    $s = $db->prepare('SELECT users_count FROM entries WHERE hash_id=? AND type="chat"');
-    $s->execute([$h]); $r = $s->fetch();
-    if ($r && (int)$r['users_count'] >= 2) { json_out(200, ['status'=>'full']); return; }
-    if ($r) {
-        $db->prepare('UPDATE entries SET users_count=2, updated_at=? WHERE hash_id=?')->execute([$now,$h]);
-        json_out(200, ['status'=>'joined','user'=>2]); return;
+    $db->exec('BEGIN IMMEDIATE');
+    try {
+        $s = $db->prepare('SELECT users_count FROM entries WHERE hash_id=? AND type="chat"');
+        $s->execute([$h]); $r = $s->fetch();
+        if ($r && (int)$r['users_count'] >= 2) { $db->exec('COMMIT'); json_out(200, ['status'=>'full']); return; }
+        if ($r) {
+            $db->prepare('UPDATE entries SET users_count=2, updated_at=? WHERE hash_id=?')->execute([$now,$h]);
+            $db->exec('COMMIT');
+            json_out(200, ['status'=>'joined','user'=>2]); return;
+        }
+        $db->prepare('INSERT INTO entries (hash_id,type,content,users_count,created_at,updated_at) VALUES(?,"chat","",1,?,?)')
+           ->execute([$h,$now,$now]);
+        $db->exec('COMMIT');
+        json_out(201, ['status'=>'created','user'=>1]);
+    } catch (\Exception $e) {
+        $db->exec('ROLLBACK');
+        json_out(500, ['error'=>'Server error']);
     }
-    $db->prepare('INSERT INTO entries (hash_id,type,content,users_count,created_at,updated_at) VALUES(?,"chat","",1,?,?)')
-       ->execute([$h,$now,$now]);
-    json_out(201, ['status'=>'created','user'=>1]);
 }
 
 function send_message(PDO $db): void {
@@ -135,14 +143,21 @@ function send_message(PDO $db): void {
     if (strlen($in['content']) > MAX_PAYLOAD_SIZE) {
         json_out(413, ['error' => 'Payload too large (Max 250KB)']);
     }
+    
+    $sender = (int)$in['sender'];
+    if ($sender !== 1 && $sender !== 2) {
+        json_out(400, ['error' => 'Invalid sender']);
+    }
 
     $now = time();
-    $s = $db->prepare('SELECT 1 FROM entries WHERE hash_id=? AND type="chat"');
-    $s->execute([$in['room_id']]); if (!$s->fetch()) json_out(404, ['error'=>'Room not found']);
-    $db->prepare('INSERT INTO messages (room_id,content,sender,created_at) VALUES(?,?,?,?)')
-       ->execute([$in['room_id'],$in['content'],(int)$in['sender'],$now]);
+    $s = $db->prepare('SELECT users_count FROM entries WHERE hash_id=? AND type="chat"');
+    $s->execute([$in['room_id']]); $room = $s->fetch();
+    if (!$room) json_out(404, ['error'=>'Room not found']);
+    if ($sender > (int)$room['users_count']) json_out(403, ['error'=>'Not joined']);
     
-    // Обновляем таймер активности комнаты только в момент отправки реального сообщения
+    $db->prepare('INSERT INTO messages (room_id,content,sender,created_at) VALUES(?,?,?,?)')
+       ->execute([$in['room_id'],$in['content'],$sender,$now]);
+    
     $db->prepare('UPDATE entries SET updated_at=? WHERE hash_id=?')->execute([$now,$in['room_id']]);
     json_out(201, ['id'=>(int)$db->lastInsertId(),'created_at'=>$now]);
 }
