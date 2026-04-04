@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <!-- Градиент как в UI (from-rose-600 to-red-800) -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e11d48" />
+      <stop offset="100%" stop-color="#991b1b" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Скругленный фон (аналог rounded-xl) -->
+  <rect x="32" y="32" width="448" height="448" rx="120" ry="120" fill="url(#bgGrad)" />
+
+  <!-- Иконка пламени по центру (вычислено для масштаба) -->
+  <g transform="translate(104, 104) scale(12.66)">
+    <path 
+      d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z" 
+      fill="none" 
+      stroke="#ffffff" 
+      stroke-width="2.5" 
+      stroke-linecap="round" 
+      stroke-linejoin="round" 
+    />
+  </g>
+</svg>
