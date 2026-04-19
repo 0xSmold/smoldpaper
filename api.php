@@ -1,6 +1,6 @@
 <?php
 /**
- * SmoldPaper v3.2 — api.php
+ * SmoldPaper v3.5.0 — api.php
  * ZERO-LOCK ARCHITECTURE
  */
 
@@ -8,16 +8,51 @@ define('DB_FILE',         __DIR__ . '/data/smoldpaper.sqlite');
 define('TEXTS_FILE',      __DIR__ . '/data/texts.json');
 define('ADMIN_HASH_FILE', __DIR__ . '/data/admin.hash');
 define('CLEANUP_LOCK',    __DIR__ . '/data/.cleanup_lock');
-define('CHAT_IDLE_TTL',   3600); // Уничтожение через 1 час
+define('CHAT_IDLE_TTL',   3600); // Room destruction after 1 hour idle
 define('CHAT_WAIT_TTL',   7200);
 define('NOTE_DEFAULT_TTL', 86400);
+define('QCHAT_DEAD_TTL',  86400); // Dead quick-chat entries live 24h
 define('TYPING_TTL',      2);
 
 define('MAX_PAYLOAD_SIZE', 250000); 
+define('RATE_LIMIT_DIR',  __DIR__ . '/data/rates');
+define('RATE_LIMIT_MAX',  120); // max requests per minute per IP
+define('RATE_LIMIT_WINDOW', 60);
 
 header('Content-Type: application/json; charset=utf-8');
 header('X-Content-Type-Options: nosniff');
 header('X-Frame-Options: DENY');
+
+function check_rate_limit(): void {
+    $dir = RATE_LIMIT_DIR;
+    if (!is_dir($dir)) @mkdir($dir, 0750, true);
+    $ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
+    $file = $dir . '/' . md5($ip) . '.rate';
+    $now = time();
+    
+    // Clean old rate files roughly every ~100 requests
+    if (mt_rand(1, 100) === 1) {
+        foreach (glob($dir . '/*.rate') as $f) {
+            if ($now - filemtime($f) > RATE_LIMIT_WINDOW * 2) @unlink($f);
+        }
+    }
+    
+    $count = 0; $window_start = $now - RATE_LIMIT_WINDOW;
+    if (file_exists($file)) {
+        $lines = file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        $lines = array_filter($lines, function($ts) use ($window_start) { return (int)$ts > $window_start; });
+        $count = count($lines);
+    } else {
+        $lines = [];
+    }
+    
+    if ($count >= RATE_LIMIT_MAX) {
+        json_out(429, ['error' => 'Too many requests. Try again later.']);
+    }
+    
+    $lines[] = $now;
+    @file_put_contents($file, implode("\n", $lines) . "\n", LOCK_EX);
+}
 
 function json_out(int $code, array $d): void {
     http_response_code($code);
@@ -76,6 +111,9 @@ function maybe_cleanup(PDO $db): void {
     $db->exec("DELETE FROM entries WHERE type='chat' AND users_count < 2 AND ($now - created_at) > " . CHAT_WAIT_TTL);
     $db->exec("DELETE FROM entries WHERE type='note' AND burn_on_read=0 AND ($now - created_at) > ttl");
     $db->exec("DELETE FROM entries WHERE type='note' AND burn_on_read=1 AND ($now - created_at) > 86400");
+    $db->exec("DELETE FROM entries WHERE type='qchat' AND users_count<3 AND ($now - updated_at) > " . CHAT_IDLE_TTL);
+    $db->exec("DELETE FROM entries WHERE type='qchat' AND users_count=3 AND ($now - updated_at) > " . QCHAT_DEAD_TTL);
+    $db->exec("DELETE FROM entries WHERE type='qchat' AND users_count<2 AND ($now - created_at) > " . CHAT_WAIT_TTL);
 }
 
 function create_note(PDO $db): void {
@@ -150,9 +188,10 @@ function send_message(PDO $db): void {
     }
 
     $now = time();
-    $s = $db->prepare('SELECT users_count FROM entries WHERE hash_id=? AND type="chat"');
+    $s = $db->prepare('SELECT users_count FROM entries WHERE hash_id=? AND type IN ("chat","qchat")');
     $s->execute([$in['room_id']]); $room = $s->fetch();
     if (!$room) json_out(404, ['error'=>'Room not found']);
+    if ((int)$room['users_count'] >= 3) json_out(403, ['error'=>'Room closed']);
     if ($sender > (int)$room['users_count']) json_out(403, ['error'=>'Not joined']);
     
     $db->prepare('INSERT INTO messages (room_id,content,sender,created_at) VALUES(?,?,?,?)')
@@ -166,14 +205,15 @@ function poll_messages(PDO $db): void {
     $rid = $_GET['room_id'] ?? ''; $after = (int)($_GET['after'] ?? 0);
     if (!$rid) json_out(400, ['error'=>'Missing room_id']);
     
-    $s = $db->prepare('SELECT * FROM entries WHERE hash_id=? AND type="chat"');
+    $s = $db->prepare('SELECT * FROM entries WHERE hash_id=? AND type IN ("chat","qchat")');
     $s->execute([$rid]); 
     $room = $s->fetch();
     
     if (!$room) json_out(404, ['error'=>'Room destroyed']);
+    if ((int)$room['users_count'] >= 3) json_out(410, ['error'=>'Room closed']);
     
-    // ПОЛЛИНГ 100% READ-ONLY! 
-    // Никаких UPDATE здесь нет, база больше не блокируется.
+    // POLLING 100% READ-ONLY! 
+    // No UPDATE here, database is never locked by polling.
 
     $s = $db->prepare('SELECT id,content,sender,created_at FROM messages WHERE room_id=? AND id>? ORDER BY id');
     $s->execute([$rid,$after]);
@@ -181,7 +221,7 @@ function poll_messages(PDO $db): void {
     json_out(200, [
         'messages'=>$s->fetchAll(),
         'users_count'=>(int)$room['users_count'],
-        'typing'=>[], // Отключено
+        'typing'=>[], // Disabled
         'created_at'=>(int)$room['created_at'],
         'updated_at'=>(int)$room['updated_at'],
         'idle_ttl'=>CHAT_IDLE_TTL
@@ -189,14 +229,58 @@ function poll_messages(PDO $db): void {
 }
 
 function set_typing(PDO $db): void {
-    // Функция оставлена заглушкой для совместимости. Ничего не пишет в БД.
+    // Stub function kept for compatibility. Does not write to DB.
     json_out(200, ['ok'=>true]);
 }
 
 function destroy_room(PDO $db): void {
     $in = get_input(); need($in, ['room_id']);
-    $db->prepare('DELETE FROM entries WHERE hash_id=? AND type="chat"')->execute([$in['room_id']]);
+    $s = $db->prepare('SELECT type FROM entries WHERE hash_id=? AND type IN ("chat","qchat")');
+    $s->execute([$in['room_id']]); $room = $s->fetch();
+    if (!$room) { json_out(200, ['status'=>'destroyed']); return; }
+    if ($room['type'] === 'qchat') {
+        // Mark as dead (users_count=3), keep entry for fake redirect
+        $now = time();
+        $db->prepare('DELETE FROM messages WHERE room_id=?')->execute([$in['room_id']]);
+        $db->prepare('UPDATE entries SET users_count=3, content="", updated_at=? WHERE hash_id=?')->execute([$now, $in['room_id']]);
+    } else {
+        $db->prepare('DELETE FROM entries WHERE hash_id=?')->execute([$in['room_id']]);
+    }
     json_out(200, ['status'=>'destroyed']);
+}
+
+function create_qchat(PDO $db): void {
+    $id = bin2hex(random_bytes(16)); $now = time();
+    $db->prepare('INSERT INTO entries (hash_id,type,content,users_count,created_at,updated_at) VALUES(?,"qchat","",1,?,?)')
+       ->execute([$id,$now,$now]);
+    json_out(201, ['id'=>$id,'status'=>'created','user'=>1]);
+}
+
+function join_qchat(PDO $db): void {
+    $in = get_input(); need($in, ['room_id']);
+    $id = $in['room_id'];
+    $db->exec('BEGIN IMMEDIATE');
+    try {
+        $s = $db->prepare('SELECT users_count FROM entries WHERE hash_id=? AND type="qchat"');
+        $s->execute([$id]); $r = $s->fetch();
+        if (!$r) { $db->exec('COMMIT'); json_out(404, ['error'=>'expired']); return; }
+        if ((int)$r['users_count'] >= 2) { $db->exec('COMMIT'); json_out(200, ['status'=>'expired']); return; }
+        $now = time();
+        $db->prepare('UPDATE entries SET users_count=2, updated_at=? WHERE hash_id=?')->execute([$now,$id]);
+        $db->exec('COMMIT');
+        json_out(200, ['status'=>'joined','user'=>2]);
+    } catch (\Exception $e) {
+        $db->exec('ROLLBACK');
+        json_out(500, ['error'=>'Server error']);
+    }
+}
+
+function check_qchat(PDO $db): void {
+    $id = $_GET['id'] ?? ''; if (!$id) json_out(400, ['error'=>'Missing id']);
+    $s = $db->prepare('SELECT users_count FROM entries WHERE hash_id=? AND type="qchat"');
+    $s->execute([$id]); $r = $s->fetch();
+    if (!$r || (int)$r['users_count'] >= 2) { json_out(200, ['status'=>'expired']); return; }
+    json_out(200, ['status'=>'waiting']);
 }
 
 function admin_auth(): bool {
@@ -232,11 +316,14 @@ function admin_login(): void {
 
 $db = init_db();
 maybe_cleanup($db);
+check_rate_limit();
 $routes = [
     'POST:create_note'=>'create_note','GET:read_note'=>'read_note',
     'POST:check_room'=>'check_room','POST:create_room'=>'create_room',
     'POST:send_message'=>'send_message','GET:poll_messages'=>'poll_messages',
     'POST:typing'=>'set_typing','POST:destroy_room'=>'destroy_room',
+    'POST:create_qchat'=>'create_qchat','POST:join_qchat'=>'join_qchat',
+    'GET:check_qchat'=>'check_qchat',
     'GET:get_texts'=>'get_texts','POST:save_texts'=>'save_texts',
     'POST:change_password'=>'change_pw','POST:admin_login'=>'admin_login',
 ];

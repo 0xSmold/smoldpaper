@@ -1,11 +1,11 @@
 <?php
 /**
- * SmoldPaper v3.2 — Admin Panel
- * Скрытый вход: admin.php?manage=1
- * Без параметра — отдаёт 404.
+ * SmoldPaper v3.5.0 — Admin Panel
+ * Hidden entry: admin.php?manage=1
+ * Without parameter — returns 404.
  */
 
-// Если нет секретного параметра — притворяемся что файла нет
+// No secret parameter — pretend file does not exist
 if (!isset($_GET['manage']) || $_GET['manage'] !== '1') {
     http_response_code(404);
     echo '<!DOCTYPE html><html><head><title>404</title></head><body><h1>404 Not Found</h1></body></html>';
@@ -48,12 +48,12 @@ h1 { font-family: 'Courier New', monospace; font-size: 1.3em; letter-spacing: 4p
 
 .sub { font-size: 0.78em; color: var(--hint); text-align: center; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 24px; }
 
-/* Карточка */
+/* Card */
 .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.3); }
 
 .card h2 { font-size: 0.95em; color: var(--accent); letter-spacing: 1px; margin-bottom: 14px; }
 
-/* Поля */
+/* Fields */
 label { display: block; font-size: 0.78em; color: var(--text2); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 5px; margin-top: 12px; }
 
 label:first-child { margin-top: 0; }
@@ -82,7 +82,7 @@ select {
     font-family: inherit;
 }
 
-/* Кнопки */
+/* Buttons */
 .btn {
     display: inline-flex; align-items: center; justify-content: center; gap: 6px;
     padding: 11px 20px; border: 1px solid var(--border); border-radius: 8px;
@@ -98,13 +98,13 @@ select {
 .btn-row { display: flex; gap: 10px; margin-top: 12px; }
 .btn-row .btn { flex: 1; margin-top: 0; }
 
-/* Статус */
+/* Status */
 .status { font-size: 0.82em; min-height: 20px; margin-top: 8px; text-align: center; }
 .status.ok { color: var(--success); }
 .status.err { color: var(--danger); }
 .status.wait { color: var(--accent-dim); }
 
-/* Вкладки языков */
+/* Language tabs */
 .lang-tabs { display: flex; gap: 4px; margin-bottom: 12px; flex-wrap: wrap; }
 .lang-tab {
     padding: 7px 14px; border: 1px solid var(--border); border-radius: 8px;
@@ -114,24 +114,24 @@ select {
 .lang-tab:hover { border-color: var(--accent-dim); }
 .lang-tab.active { background: rgba(196,168,130,0.1); border-color: var(--accent); color: var(--accent); }
 
-/* Группа полей одного языка */
+/* Field group per language */
 .lang-group { display: none; }
 .lang-group.active { display: block; }
 
-/* Список ключей */
+/* Key list */
 .key-field { margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid rgba(44,44,58,0.5); }
 .key-field:last-child { border-bottom: none; margin-bottom: 0; }
 .key-name { font-family: 'Courier New', monospace; font-size: 0.78em; color: var(--accent-dim); margin-bottom: 4px; }
 
-/* Логин-форма */
+/* Login form */
 #login-view, #admin-view { display: none; }
 #login-view.active, #admin-view.active { display: block; }
 
-/* Анимация */
+/* Animation */
 @keyframes fadeIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
 .card { animation: fadeIn 0.3s ease; }
 
-/* Адаптив */
+/* Responsive */
 @media (max-width: 480px) {
     body { padding: 20px 10px; }
     .card { padding: 16px; }
@@ -144,7 +144,7 @@ select {
     <h1>SmoldPaper</h1>
     <div class="sub">Administration Panel</div>
 
-    <!-- ═══ ЛОГИН ═══ -->
+    <!-- ═══ LOGIN ═══ -->
     <div id="login-view" class="active">
         <div class="card">
             <h2>🔐 Authentication</h2>
@@ -155,10 +155,10 @@ select {
         </div>
     </div>
 
-    <!-- ═══ ПАНЕЛЬ АДМИНА ═══ -->
+    <!-- ═══ ADMIN PANEL ═══ -->
     <div id="admin-view">
 
-        <!-- Редактор текстов -->
+        <!-- Text editor -->
         <div class="card">
             <h2>📝 Interface Texts</h2>
             <p style="font-size:0.82em;color:var(--text2);margin-bottom:12px">
@@ -176,7 +176,7 @@ select {
             <div id="texts-status" class="status"></div>
         </div>
 
-        <!-- Смена пароля -->
+        <!-- Change password -->
         <div class="card">
             <h2>🔑 Change Password</h2>
             <label>Current Password</label>
@@ -189,7 +189,7 @@ select {
             <div id="pw-status" class="status"></div>
         </div>
 
-        <!-- Выход -->
+        <!-- Logout -->
         <div style="text-align:center;margin-top:12px">
             <button class="btn btn-danger" onclick="doLogout()">🚪 Logout</button>
         </div>
@@ -220,22 +220,25 @@ const EDITABLE_KEYS = [
     'donate_text', 'donate_text2', 'donate_text3',
     'footer_text', 'room_timer_label', 'idle_timer', 'phrase_busy',
     
-    // Кнопка About
+    // About button
     'about_btn',
     
-    // Ключи инструкции Стелс-связи
+    // Stealth Chat how-to keys
     'htu_title', 'htu_sub', 
     'htu_1_t', 'htu_1_d', 
     'htu_2_t', 'htu_2_d', 
     'htu_3_t', 'htu_3_d', 
     'htu_4_t', 'htu_4_d',
 
-    // Ключи инструкции Записок
+    // Notes how-to keys
     'htu_note_title', 'htu_n_sub', 
     'htu_n_1_t', 'htu_n_1_d', 
     'htu_n_2_t', 'htu_n_2_d', 
     'htu_n_3_t', 'htu_n_3_d', 
-    'htu_n_4_t', 'htu_n_4_d'
+    'htu_n_4_t', 'htu_n_4_d',
+
+    // Video/GIF under cards (URL: YouTube, .mp4, .gif)
+    'htu_n_video', 'htu_s_video', 'htu_q_video'
 ];
 
 const LANGS = ['en', 'ru', 'de', 'fr', 'es'];
@@ -261,7 +264,7 @@ async function apiGet(action) {
     return res.json();
 }
 
-// ─── ЛОГИН ────────────────────────────────────────────────
+// ─── LOGIN ────────────────────────────────────────────────
 
 async function doLogin() {
     const pw = document.getElementById('login-pw').value;
@@ -292,21 +295,21 @@ function doLogout() {
     document.getElementById('login-pw').value = '';
 }
 
-// ─── ПОСТРОЕНИЕ РЕДАКТОРА ─────────────────────────────────
+// ─── BUILD EDITOR ─────────────────────────────────
 
 function buildEditor() {
-    // Вкладки языков
+    // Language tabs
     const tabsEl = document.getElementById('lang-tabs');
     tabsEl.innerHTML = LANGS.map(l =>
         `<button class="lang-tab ${l === currentLang ? 'active' : ''}" onclick="switchLang('${l}')">${l.toUpperCase()} — ${LANG_NAMES[l]}</button>`
     ).join('');
 
-    // Группы полей
+    // Field groups
     const editorsEl = document.getElementById('lang-editors');
     editorsEl.innerHTML = LANGS.map(l => {
         let html = `<div class="lang-group ${l === currentLang ? 'active' : ''}" id="lang-${l}">`;
 
-        // Обычные ключи — input
+        // Regular keys — input
         for (const key of EDITABLE_KEYS) {
             html += `<div class="key-field">`;
             html += `<div class="key-name">${key}</div>`;
@@ -331,7 +334,7 @@ function switchLang(lang) {
     document.querySelectorAll('.lang-group').forEach(g => g.classList.toggle('active', g.id === 'lang-' + lang));
 }
 
-// ─── ЗАГРУЗКА / СОХРАНЕНИЕ ────────────────────────────────
+// ─── LOAD / SAVE ────────────────────────────────
 
 async function loadTexts() {
     setStatus('texts-status', 'Loading...', 'wait');
@@ -339,7 +342,7 @@ async function loadTexts() {
         const res = await apiGet('get_texts');
         textsData = res.texts || {};
 
-        // Заполняем поля
+        // Fill fields
         for (const l of LANGS) {
             const langData = textsData[l] || {};
             for (const key of [...EDITABLE_KEYS, 'about_html']) {
@@ -358,7 +361,7 @@ async function loadTexts() {
 async function saveTexts() {
     setStatus('texts-status', 'Saving...', 'wait');
 
-    // Собираем данные из полей
+    // Collect data from fields
     const data = {};
     for (const l of LANGS) {
         data[l] = {};
@@ -368,7 +371,7 @@ async function saveTexts() {
                 data[l][key] = el.value.trim();
             }
         }
-        // Если языковой объект пустой — не включаем
+        // Skip empty language objects
         if (Object.keys(data[l]).length === 0) delete data[l];
     }
 
@@ -389,7 +392,7 @@ async function saveTexts() {
     }
 }
 
-// ─── СМЕНА ПАРОЛЯ ─────────────────────────────────────────
+// ─── CHANGE PASSWORD ─────────────────────────────────────────
 
 async function changePw() {
     const cur = document.getElementById('cur-pw').value;
@@ -421,14 +424,14 @@ async function changePw() {
     }
 }
 
-// ─── УТИЛИТЫ ──────────────────────────────────────────────
+// ─── UTILITIES ──────────────────────────────────────────────
 
 function setStatus(id, text, type) {
     const el = document.getElementById(id);
     if (el) { el.textContent = text; el.className = 'status' + (type ? ' ' + type : ''); }
 }
 
-// Фокус на поле пароля при загрузке
+// Focus password field on load
 document.getElementById('login-pw').focus();
 </script>
 </body>
