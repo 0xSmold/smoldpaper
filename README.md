@@ -53,19 +53,19 @@ Just drop three files on any $2/month PHP hosting and you're protected.
 
 Write a secret note, encrypt it with a password, get a link. The note is **physically erased** from the server the exact millisecond it's opened. Or set a timer: 1h, 6h, 12h, 24h.
 
-https://github.com/0xSmold/smoldpaper/raw/main/demo/1en_smaller.mp4
+https://github.com/user-attachments/assets/5b4d3285-656c-46bf-be05-86b905ff8034
 
 ### 💬 Quick Chat
 
 Create an encrypted room, get an invite link, send it to someone. They enter the shared password — you both chat with E2E encryption. Once two people are in, the room is **sealed forever** — nobody else can join, even with the link. When you're done, it self-destructs. The old link becomes a dead end.
 
-https://github.com/0xSmold/smoldpaper/raw/main/demo/2en_smaller.mp4
+https://github.com/user-attachments/assets/2f1e546a-5852-468f-b917-e827d0cb3c4e
 
 ### 🕵️ Stealth Chat
 
 The most advanced mode — designed for hostile environments. You agree on a password and a code word with your contact. Then you chat normally in any messenger. When the code word appears in a message — that entire message becomes the key to a hidden encrypted room in SmoldPaper. To any outside observer, nothing unusual happened.
 
-https://github.com/0xSmold/smoldpaper/raw/main/demo/3en_smaller.mp4
+https://github.com/user-attachments/assets/c2cb8fa8-fdb0-48b6-a2fc-fc4f88d550e0
 
 ### 🌍 5 Languages
 Full localization: English, Русский, Deutsch, Français, Español. Every screen, every button, every instruction — professionally translated. Built-in demo videos switch automatically per language.
