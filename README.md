@@ -50,6 +50,25 @@ Everything is encrypted in your browser. The server stores only ciphertext and n
   </tr>
 </table>
 
+
+🎬 Video Guides
+
+
+Notes
+
+https://github.com/user-attachments/assets/90eb9548-7429-41de-b787-93aa3c6d8a38
+
+
+Quick Chat
+
+https://github.com/user-attachments/assets/e70277b0-9632-4bf5-95bb-91b2880ecd7a
+
+
+Stealth Chat
+
+https://github.com/user-attachments/assets/5a3cbaea-83cc-48bc-90e3-66b71deaf614
+
+
 ---
 
 ## 🏗️ Three Files
