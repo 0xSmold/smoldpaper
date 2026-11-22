@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🔥 SmoldPaper v3.5.0
+# 🔥 SmoldPaper v4.0.0
 
 ### *Privacy is a Right.*
 
@@ -9,9 +9,9 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-red.svg)](LICENSE)
 [![PHP](https://img.shields.io/badge/PHP-7.4%2B-777BB4.svg)](https://php.net)
 [![No Dependencies](https://img.shields.io/badge/Dependencies-Zero-brightgreen.svg)](#)
-[![Self-Hosted](https://img.shields.io/badge/Self--Hosted-3%20Files-orange.svg)](#-installation-10-seconds)
+[![Self-Hosted](https://img.shields.io/badge/Self--Hosted-3%20Files-orange.svg)](#-installation)
 
-[**🌐 Live Demo**](https://smoldpaper.org) · [**🚀 Install**](#-installation-10-seconds) · [**🛡️ Security**](#-how-the-cryptography-works) · [**🎭 Protocol**](#-the-stealth-protocol)
+[**🌐 Live Demo**](https://smoldpaper.org) · [**📸 Screenshots**](#-screenshots) · [**🚀 Install**](#-installation) · [**🛡️ Security**](#-how-the-cryptography-works) · [**🎭 Protocol**](#-the-stealth-protocol) · [**💎 Pro**](#-smoldpaper-pro)
 
 ---
 
@@ -24,178 +24,205 @@
 
 ## 💡 What is SmoldPaper?
 
-SmoldPaper is a free, self-hosted, client-side encrypted platform for exchanging sensitive information. It allows two parties to communicate across **compromised or monitored channels** — like Telegram, WhatsApp, or Discord — without leaving a single trace on the server.
+SmoldPaper is a free, self-hosted, client-side encrypted platform for exchanging sensitive information. It lets two people talk across **compromised or monitored channels** – Telegram, WhatsApp, Discord – without leaving readable data on the server.
 
-**No accounts. No logs. No cookies. No trace.**
+**No accounts. No analytics. No IP logging. No external requests.**
 
-The server is mathematically blind. Even if seized by authorities, it contains only cryptographic noise indistinguishable from random data.
+Everything is encrypted in your browser. The server stores only ciphertext and never receives your passwords or keys.
 
 ---
 
-## 🏗️ The 3-File Revolution
+## 📸 Screenshots
 
-We destroyed the old complex architecture. SmoldPaper is now an elegantly simple **3-file solution**:
+<p align="center">
+  <img src="screenshots/home.png" alt="Writing a burn-after-reading note" width="820">
+</p>
+
+<table>
+  <tr>
+    <td align="center" width="33%"><img src="screenshots/chat-a.png" alt="Quick Chat – first member"><br><sub>Quick Chat, dark theme</sub></td>
+    <td align="center" width="33%"><img src="screenshots/chat-b.png" alt="Quick Chat – second member"><br><sub>The same chat on the other phone</sub></td>
+    <td align="center" width="33%"><img src="screenshots/note-mobile.png" alt="A decrypted note"><br><sub>The note is read and burned</sub></td>
+  </tr>
+  <tr>
+    <td align="center" colspan="2"><img src="screenshots/link-qr.png" alt="Link and QR code"><br><sub>Every note and invite gets a link and a QR code</sub></td>
+    <td align="center"><img src="screenshots/admin.png" alt="Admin panel"><br><sub>Protected admin panel with 2FA</sub></td>
+  </tr>
+</table>
+
+---
+
+## 🏗️ Three Files
 
 | File | Purpose |
 |------|---------|
-| `index.html` | The entire frontend — UI, encryption engine, 5 languages |
-| `api.php` | The entire backend — API, database, cleanup, rate limiting |
-| `admin.php` | Hidden admin panel for customization |
+| `index.html` | The whole frontend – interface, encryption, 5 languages, Markdown, QR codes |
+| `api.php` | The whole backend – API, SQLite database, cleanup, rate limiting |
+| `admin.php` | Hidden admin panel – interface texts and admin protection |
 
-No Node.js. No Docker. No npm. No build tools. No dependency hell.
-Just drop three files on any $2/month PHP hosting and you're protected.
+Plus `manifest.json` and `favicon.svg`. No Node.js, no Docker, no npm, no build step, no CDN. Drop the files on any cheap PHP hosting.
 
 ---
 
 ## ✨ Features
 
-### 🔐 Burn-on-Read Notes
+### 🔐 Burn-after-Reading Notes
 
-Write a secret note, encrypt it with a password, get a link. The note is **physically erased** from the server the exact millisecond it's opened. Or set a timer: 1h, 6h, 12h, 24h.
+Write a note, protect it with a password, get a link and a QR code. The note is deleted from the database right after it is read with the right password, or when its time is up: 5 minutes, 15 minutes, 1, 6, 12 or 24 hours. Opening the link alone spends nothing. After 5 wrong passwords the note destroys itself.
 
-https://github.com/user-attachments/assets/5b4d3285-656c-46bf-be05-86b905ff8034
+Notes support **Markdown** with a live preview and hotkeys: Ctrl/Cmd + B, I, U, K.
 
 ### 💬 Quick Chat
 
-Create an encrypted room, get an invite link, send it to someone. They enter the shared password — you both chat with E2E encryption. Once two people are in, the room is **sealed forever** — nobody else can join, even with the link. When you're done, it self-destructs. The old link becomes a dead end.
-
-https://github.com/user-attachments/assets/2f1e546a-5852-468f-b917-e827d0cb3c4e
+Create an encrypted room, send the invite link (or show the QR code), and your contact enters the shared password. A wrong password is refused at the door. Once two people are in, the room is **sealed** – nobody else can join, even with the link and the password. When you are done, destroy it: the old link becomes a dead end.
 
 ### 🕵️ Stealth Chat
 
-The most advanced mode — designed for hostile environments. You agree on a password and a code word with your contact. Then you chat normally in any messenger. When the code word appears in a message — that entire message becomes the key to a hidden encrypted room in SmoldPaper. To any outside observer, nothing unusual happened.
+Designed for hostile environments. You agree with your contact on a password and a code word. Then you chat normally in any messenger. When a message with the code word appears, that whole message becomes the key to a hidden room in SmoldPaper. To an outside observer nothing unusual happened.
 
-https://github.com/user-attachments/assets/c2cb8fa8-fdb0-48b6-a2fc-fc4f88d550e0
+### 🔄 Back After a Reload
 
-### 🌍 5 Languages
-Full localization: English, Русский, Deutsch, Français, Español. Every screen, every button, every instruction — professionally translated. Built-in demo videos switch automatically per language.
-
-### 🎨 Themes & Accessibility
-Warm dark theme, light theme, adjustable font sizes, notification sounds. Mobile-first responsive design. PWA support — install as an app on your phone.
+If a page reloads by accident, SmoldPaper offers to return to the same chat: enter the password (and for Stealth Chat the phrase) again and you get your seat and the history back. The encryption key is never stored – not even in the browser. Your contact sees "Partner left" while you are away.
 
 ### 🔑 Anti-MITM Visual Hash
-A unique visual fingerprint (Color · Animal · Object) derived from the room hash. Both participants see the same code — if it doesn't match, someone is intercepting.
 
-### 🛠️ Admin Panel
-Hidden admin panel (`admin.php?manage=1`) to customize all UI texts, translations, video embeds, and the admin password. No database editing required.
+A visual fingerprint (Color · Animal · Object) derived from the room. Both people must see the same words – if they differ, something is wrong.
 
-### 📹 Built-in Video Guides
-Each feature has an embedded video tutorial right in the interface. Videos switch automatically based on the selected language. Supports local MP4 files, YouTube (via privacy-enhanced `youtube-nocookie.com`), and Vimeo (with `dnt=1` — Do Not Track). Even the video embeds respect your privacy.
+### 🌍 5 Languages, Themes, PWA
+
+English, Русский, Deutsch, Français, Español. Dark and light themes, font sizes, notification sounds, mobile-first layout, installable as an app.
+
+### 🛠️ Protected Admin Panel
+
+Edit every interface text in all 5 languages, set video guides, and protect the panel itself: a secret address, a strong password, sign-in limits and optional two-factor codes (Google Authenticator, Aegis and others).
+
+---
+
+## 💎 SmoldPaper Pro
+
+This repository is the free edition. It is complete and stays free: everything described here works without Pro.
+
+**SmoldPaper Pro** is the extended edition for teams, communities and anyone who needs more. It is built on the same code and the same encryption, is developed continuously and gets new features first. Pro is not open source and is not published here.
+
+What Pro adds:
+
+| Feature | Free | Pro |
+|---------|------|-----|
+| Encrypted file attachments in notes and chats | – | ✅ several files per note (10 by default, set by the owner), up to 25 MB each, drag & drop |
+| Chat size | 2 people | up to 10 people (Quick and Stealth) |
+| Reads per note | 1 | up to 100 |
+| Note lifetime | 5 min – 24 h | up to 7 days, or an exact date and time (up to a year) |
+| Your branding: name, subtitle, logo, footer, custom CSS | – | ✅ |
+| Password for the whole site | – | ✅ |
+| Settings: file size, password attempts, chat sizes and lifetime, which tabs and timers are shown | – | ✅ |
+| Dashboard: notes, active chats, files, disk space | – | ✅ |
+| Event log without IP addresses, CSV export | – | ✅ |
+| Your own donation wallets, or no donation block | – | ✅ |
+| Admin panel protection, 2FA, 5 languages | ✅ | ✅ |
+
+**To get SmoldPaper Pro, write to the author:** [onbidon@proton.me](mailto:onbidon@proton.me)
 
 ---
 
 ## 🎭 The Stealth Protocol
 
-This is what makes SmoldPaper unique. It's not just a tool — it's a **communication protocol** designed for hostile environments.
+### Step 1 – The Agreement
+Agree with your contact on a **shared password** and a **code word**. Do it in person or over a channel you trust. Once is enough.
 
-### Step 1 — The Agreement
-Agree with your contact on two things: a **shared password** and a **code word**. Do this in person or through a channel you trust. This only needs to happen once.
-
-### Step 2 — The Signal
-Chat normally on WhatsApp, Telegram, Signal — wherever. When you need to start a secret conversation, send a message containing the code word. For example:
+### Step 2 – The Signal
+Chat normally anywhere. To start a secret conversation, send a message with the code word, for example:
 > *"**Buddy**, take a look at the report when you can."*
 
-The code word tells your contact: "this entire message is the key."
+### Step 3 – The Entry
+Your contact copies the **entire message**, opens SmoldPaper → Stealth Chat, pastes it as the phrase (at least 25 characters) and enters the shared password. You are both in the same encrypted room. The same phrase leads to different rooms on different SmoldPaper sites.
 
-### Step 3 — The Entry
-Your contact sees the code word → copies the **entire message** → opens SmoldPaper → pastes it as the stealth phrase → enters the shared password → both of you are in the same encrypted room.
-
-### Step 4 — Read & Burn
-Communicate securely. When you're done, the room **burns without a trace**. 🔥
-
-> To any outside observer, you were just chatting about everyday things. The secret conversation happened in a place that no longer exists.
+### Step 4 – Read & Burn
+Talk. When you are done, destroy the room. 🔥
 
 ---
 
 ## 🛡️ How the Cryptography Works
 
 ```
-Your Password
-     │
-     ▼
-┌─────────────────────────┐
-│  PBKDF2 (SHA-256)       │
-│  50,000 iterations      │
-│  + random 128-bit salt  │
-│         │               │
-│         ▼               │
-│  256-bit AES Key        │
-└─────────────────────────┘
-     │
-     ▼
-┌─────────────────────────┐
-│  AES-256-GCM Encrypt    │
-│  + random 96-bit IV     │
-│         │               │
-│         ▼               │
-│  Salt + IV + Ciphertext │
-│  (Base64 encoded)       │
-└─────────────────────────┘
-     │
-     ▼
-  Server receives ONLY this
-  (indistinguishable from noise)
+Password ──► PBKDF2-SHA256, 600 000 iterations ──► HKDF
+                                                    │
+                       ┌────────────────────────────┴───────────────┐
+                       ▼                                            ▼
+             AES-256-GCM key                             access token / check value
+       (never leaves the browser)                 (the server keeps only its SHA-256)
+                       │
+                       ▼
+        IV + ciphertext ──► server stores only this
 ```
 
-**Key points:**
-- **50,000 PBKDF2 iterations** — even a supercomputer needs centuries to brute-force a decent password
-- **Random salt per message** — identical passwords produce different ciphertexts
-- **AES-GCM authenticated encryption** — detects any tampering
-- **The server never sees the password** — decryption happens exclusively in the recipient's browser
-- **Web Crypto API** — uses the browser's native, audited cryptographic engine (no JavaScript crypto libraries)
+- **Notes:** a random salt per note. The server hands out the ciphertext and counts a read only for the right access token – nobody gets the encrypted note without the password.
+- **Chats:** the room id is the salt. A "check value" derived from the password lets the server refuse a wrong password without ever knowing it. Every member has a random token; the server stores only its hash and takes the sender of a message from it.
+- **Stealth rooms:** the phrase goes through its own PBKDF2 (600 000 iterations, salted with the site address). Half of the result is the room id, the other half is mixed into the key and never sent.
+- **AES-GCM** detects any change: altered data simply does not decrypt.
+- **Web Crypto API** of the browser – no JavaScript crypto libraries.
+
+A short or common password is still a weak password – use a long phrase.
 
 ---
 
-## 🚀 Installation (10 seconds)
+## 🚀 Installation
 
 ### Requirements
-- Any web server with **PHP 7.4+** (Apache, Nginx, LiteSpeed)
-- **PDO SQLite** extension (enabled by default on 99% of hosts)
-- That's it. Seriously.
+- A web server with **PHP 7.4+** (tested on PHP 8.3) – Apache, Nginx or LiteSpeed
+- The **PDO SQLite** extension (enabled on almost every hosting)
+- **HTTPS** – browsers allow encryption only on secure pages
 
 ### Quick Start
 
-1. Download the [latest release](https://github.com/0xSmold/smoldpaper/releases)
-2. Upload `index.html`, `api.php`, `admin.php`, `manifest.json`, and `favicon.svg` to your web server
-3. Open your domain in the browser
-4. **Done.** 🎉
+1. Download the [latest release](https://github.com/0xSmold/smoldpaper/releases).
+2. Upload `index.html`, `api.php`, `admin.php`, `manifest.json` and `favicon.svg` to your site. Always upload `api.php` and `admin.php` together.
+3. Open your site. The `data` folder, the database and the protection files are created automatically.
 
-On first run, `api.php` automatically:
-- Creates a secure `/data` directory
-- Initializes the `smoldpaper.sqlite` database (WAL mode, optimized)
-- Configures `.htaccess` to block direct database access
-- Sets up rate limiting storage
+### Nginx
+
+Apache and LiteSpeed read the `.htaccess` file that SmoldPaper writes into `data`. Nginx ignores it, so add this rule to your server block:
+
+```nginx
+location ^~ /data/ { deny all; return 404; }
+```
+
+Check: opening `https://your-site/data/` must show 404 or 403. Service files inside `data` start with a PHP `exit` line, so they show nothing even without the rule – the rule hides the database file.
 
 ### Optional: Video Guides
 
-SmoldPaper includes built-in video tutorials that appear inside the "How to use" sections. To enable them:
+The "How to use" blocks can show short videos. Download them from the assets of the [latest release](https://github.com/0xSmold/smoldpaper/releases) and put the MP4 files next to `index.html`:
 
-1. Download the video pack from the [latest release](https://github.com/0xSmold/smoldpaper/releases) assets
-2. Place the MP4 files in the **same directory** as `index.html`
-3. Videos are available in English and Russian. The app automatically shows the correct language version
-
-File names expected by default:
 - English: `1 en_smaller.mp4`, `2 en_smaller.mp4`, `3 en_smaller.mp4`
 - Russian: `1 ru_smaller.mp4`, `2 ru_smaller.mp4`, `3 ru_smaller.mp4`
 
-You can change video URLs per language via the Admin Panel, including YouTube and Vimeo links.
+Russian shows the Russian videos, all other languages the English ones. In the admin panel you can replace them with other files or YouTube / Vimeo links. If a file is missing, the block simply shows no video.
 
 ---
 
-## ⚙️ Administration
+## ⚙️ First Sign-in to the Admin Panel
 
-Access the hidden Admin Panel:
+1. Open `https://your-site/admin.php?manage=1`.
+2. The panel asks for a **one-time setup code**. Open the file `data/setup-code.php` via FTP or your hosting file manager – the code is on its second line.
+3. Set your admin password (at least 8 characters) and a **secret address key**, or press "Generate".
+4. The panel shows your new address `admin.php?k=YOUR_KEY`. Save it in bookmarks or a password manager. From now on `admin.php?manage=1` and any other address answer "404 Not Found".
 
-1. Navigate to `yourdomain.com/admin.php?manage=1`
-2. Default password: `smoldpaper`
-3. **⚠️ Change this immediately after first login!**
+Then, in the panel:
+- **Interface texts** – every text of the site in 5 languages, including video links and the "About" page.
+- **Two-factor protection** – codes from an authenticator app, 8 one-time backup codes.
+- **Admin address** and **Password** – change them at any time.
 
-The panel allows you to:
-- Edit all interface texts in all 5 languages
-- Set video/GIF URLs for each language and feature
-- Change the admin password
+After 5 wrong passwords or codes the sign-in pauses for 1, 5, 15 and then 60 minutes. The session ends after 30 minutes without activity and in any case after 8 hours.
 
-Without `?manage=1`, the admin page returns a convincing 404.
+### Lost access?
+
+| Problem | Fix (via FTP or file manager) |
+|---------|-------------------------------|
+| Forgot the admin address | Delete `data/admin_key.php` – `admin.php?manage=1` works again |
+| Forgot the password | Delete `data/admin_hash.php` – a new code appears in `data/setup-code.php` |
+| Lost the phone and backup codes | Delete `data/admin_totp.php` – sign-in needs only the password |
+| Sign-in is paused | Delete `data/admin_lock.php` |
+
+Keep your FTP and hosting account safe: they are stronger than any admin password.
 
 ---
 
@@ -204,76 +231,57 @@ Without `?manage=1`, the admin page returns a convincing 404.
 | Layer | Implementation |
 |-------|---------------|
 | Encryption | AES-256-GCM (Web Crypto API) |
-| Key Derivation | PBKDF2-SHA256, 50,000 iterations |
-| Data at Rest | Only ciphertext stored (zero-knowledge) |
-| Deletion | Hard `DELETE` SQL — no soft-deletes, no recovery |
-| Transport | HTTPS (your server's TLS) |
-| MITM Detection | Visual hash fingerprinting (Color · Animal · Object) |
-| XSS Protection | DOM-based sanitization of all rendered Markdown |
-| Race Conditions | Atomic SQLite transactions (`BEGIN IMMEDIATE`) |
-| Rate Limiting | 120 req/min per IP, file-based, no Redis needed |
-| Admin Access | bcrypt password hashing, hidden endpoint |
-| Session Recovery | sessionStorage for chat key (survives page refresh, cleared on tab close) |
-| Video Embeds | YouTube via `youtube-nocookie.com`, Vimeo with `dnt=1` |
-| External Calls | Zero. Markdown parser (marked.js) is bundled inline |
+| Key derivation | PBKDF2-SHA256, 600 000 iterations + HKDF |
+| Data at rest | Only ciphertext; passwords and keys never reach the server |
+| Password guessing | Notes are destroyed after 5 wrong passwords; a chat room makes newcomers wait 1, 5, then 15 minutes after 5 wrong passwords in a row |
+| Deletion | Hard `DELETE` in SQLite after reading, by timer or by the "Destroy chat" button |
+| Chat members | Random member tokens, only their hashes on the server |
+| Rate limiting | Per address, file-based; file names are HMACs with an hourly salt, never IP addresses |
+| Admin access | Secret address, bcrypt, sign-in pauses, one session cookie (HttpOnly, SameSite=Strict), CSRF token, optional TOTP |
+| XSS protection | Markdown is rebuilt from a whitelist of tags; raw HTML is shown as text |
+| External calls | None. marked.js is bundled inline, the QR code is drawn locally |
 
-### What SmoldPaper does NOT do:
+### What SmoldPaper does NOT do
 - ❌ Store passwords or encryption keys
-- ❌ Use cookies or tracking
-- ❌ Log IP addresses
-- ❌ Keep any record of destroyed messages
-- ❌ Phone home to any external server
-- ❌ Load any external resources
+- ❌ Track visitors or set cookies for them (the only cookie is the owner's admin session)
+- ❌ Record IP addresses (your hosting company's own logs do not depend on SmoldPaper)
+- ❌ Load anything from other servers
+
+No program can guarantee that data is wiped from the physical disk of a hosting server (backups, file system journals) – that is exactly why only ciphertext is ever stored there.
 
 ---
 
 ## 📋 Changelog
 
-### v3.5.0 — "Full Autonomy"
-- 🎬 **Built-in video guides**: MP4, YouTube (nocookie), Vimeo (DNT) support per language
-- 🛡️ **Rate limiting**: 120 req/min per IP, file-based
-- 🌐 **OG meta tags & Twitter Cards**: rich link previews when sharing
-- 📱 **PWA manifest**: installable as a mobile app
-- 📦 **Marked.js bundled inline**: zero external CDN calls, 100% autonomous
-- 🔄 **Session recovery**: chat key survives page refresh via sessionStorage
-- 📏 **Character counter** for notes with size warning
-- 🎨 **Refined light theme**: warm cream palette with proper contrast
-- 📝 **Note textarea**: 300px min height, auto-expand, resizable
-- 🔥 **Styled destruction message**: highlighted yellow banner, impossible to miss
-- 🗣️ **All code comments in English** for international contributors
+### v4.0.0 – "New Generation"
+- 🔐 **Stronger keys:** PBKDF2 600 000 iterations + HKDF for notes and chats (was 50 000)
+- 🚪 **Server-side password checks without knowing the password:** notes are given out only for the right access token; wrong passwords are counted and the note is destroyed after 5
+- 💬 **Chats rebuilt:** member tokens, wrong chat password refused at the door and limited per room, "Partner left" status, return to the same seat after a reload (the key is never stored), no duplicate messages on a bad connection
+- 🕵️ **Stealth rooms:** the phrase gives a room id plus a secret part of the key that the server never sees; different sites give different rooms, while `www.` and the plain address give the same one
+- 📱 **QR code** for every note and invite link (drawn locally, no external services)
+- 📝 **Markdown preview** and hotkeys in the note editor; character counters
+- ⏱️ **New short timers:** 5 and 15 minutes
+- 🛡️ **Protected admin panel:** setup code instead of a default password, secret address, sign-in pauses, secure session, two-factor codes, admin panel in 5 languages with themes
+- 🧹 **Safer storage:** service files with PHP protection, random database name, `.htaccess` for the data folder, deleted data overwritten in the database file, no IP addresses in rate limiting
+- ⚠️ Notes and chats created with v3.x cannot be opened by v4.0.0 and are removed on the first start; interface texts and the admin password are kept
 
-### v3.4.0 — "Quick Chat"
-- 💬 **Quick Chat**: invite-link-based E2E encrypted chat rooms
-- 🔒 Rooms sealed at 2 participants — third person sees "expired"
-- 🪦 Dead rooms persist 24h as decoys, then auto-cleanup
-- 🆔 Visual hash verification for Quick Chat rooms
-- 🌍 Quick Chat translations for all 5 languages
-- 📱 Mobile-optimized tabs for 3-tab layout
+### v3.5.0 – "Full Autonomy"
+- Built-in video guides, rate limiting, OG tags, PWA manifest, marked.js bundled inline
 
-### v3.3.0 — "Hardened Ash"
-- 🛡️ DOM-based XSS sanitization for Markdown
-- 🔒 Atomic room creation with `BEGIN IMMEDIATE`
-- ✅ Server-side sender validation
-- 🌍 Full professional translations for all 5 languages
-- ✨ Rewritten "About" page across all languages
-- 🏷️ New tagline: "Privacy is a Right."
+### v3.4.0 – "Quick Chat"
+- Quick Chat with invite links, rooms sealed at 2 participants
 
-### v3.2 — "The 3-File Revolution"
-- Eliminated entire Node.js/NPM build system
-- Reduced to 3 files: `index.html`, `api.php`, `admin.php`
-- Added Stealth Chat with real-time E2E encryption
-- Added admin panel with multi-language text editor
-- Added visual hash anti-MITM system
+### v3.3.0 – "Hardened Ash"
+- DOM-based Markdown sanitization, atomic room creation, 5 languages
+
+### v3.2 – "The 3-File Revolution"
+- Three files instead of a Node.js build, Stealth Chat, admin panel, visual hash
 
 ---
 
 ## ❤️ Support the Project
 
 We share this app for free with everyone in the world because **every person has the right to privacy**.
-
-This app will protect many from persecution and may even save someone's life.
-
-Maintaining servers and development requires funding:
 
 | Currency | Address |
 |----------|---------|
@@ -285,27 +293,19 @@ Maintaining servers and development requires funding:
 | **TON** | `UQApKqtdQ2vlab-CvRGJve_jlNVqkf_g-mngpKMS34Ga85RT` |
 | **Dogecoin** | `D9j8yZyiNztiLZMZ8SSQmqgd53VfEcyJFp` |
 
----
-
-## 🔗 Help the Project Grow
-
-The development of this project depends entirely on **you**!
-
-Share the link with your friends and the whole world so people always have the ability to communicate confidentially — even where it seems impossible at first glance.
-
-**⭐ Star this repo** — it costs nothing and helps others discover SmoldPaper.
+**⭐ Star this repo** – it costs nothing and helps others find SmoldPaper.
 
 ---
 
 ## ⚖️ Disclaimer
 
-This service is provided "as is". The owner assumes no liability. Using this service for illegal activities is strictly prohibited. Designed exclusively for **privacy and free speech**.
+This software is provided "as is". The owner assumes no liability. Using it for illegal activities is strictly prohibited. Designed exclusively for **privacy and free speech**.
 
 ---
 
 ## 📝 License
 
-MIT License. Copyright (c) 2025–2026 SmoldPaper Contributors.
+MIT License – see [LICENSE](LICENSE). Copyright (c) 2025–2026 SmoldPaper Contributors.
 
 ---
 
